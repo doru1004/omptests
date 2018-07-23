@@ -759,7 +759,10 @@ void loop_sched(void) {
   #pragma omp parallel for if(foo) num_threads(foo) schedule(static,foo)
   for (int i = 0; i < 100; i++)
   {
-    cpuExec[omp_get_thread_num()] += i;
+    if (omp_get_num_threads() == 1) {
+      cpuExec[omp_get_thread_num() + (i % (2*foo)) / 2] += i;
+    } else 
+      cpuExec[omp_get_thread_num()] += i;
   }
 
   printf("--> 2425=%ld 2525=%ld\n",(long)cpuExec[0], (long)cpuExec[1]);
@@ -773,8 +776,13 @@ void static_data_sharing(void) {
   {
     #pragma omp parallel for num_threads(2)
     for (int i=0;i<50;i++) {
-      A[omp_get_thread_num()] += 1;
-      temp[omp_get_thread_num()] += 2;
+      if (omp_get_num_threads() == 1) {
+        A[omp_get_thread_num() + i % 2] += 1;
+        temp[omp_get_thread_num() + i % 2] += 2;
+      } else {
+        A[omp_get_thread_num()] += 1;
+        temp[omp_get_thread_num()] += 2;
+      }
     }
     #pragma omp barrier
   }

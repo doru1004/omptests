@@ -17,8 +17,9 @@ int test_aligned(){
   // offload
   #pragma omp target data map(tofrom: b[0:100]) 
   #pragma omp target parallel for simd aligned(b: 8*sizeof(int))
-  for(int k=0; k<N; k++)
+  for(int k=0; k<N; k++) {
     b[k] = k;
+  }
 
   // host
   for(i=0; i<N; i++)

@@ -11,7 +11,7 @@
 
 #define INIT() INIT_LOOP(N, {C[i] = 0; D[i] = i; E[i] = -i;})
 
-#define ZERO(X) ZERO_ARRAY(N, X) 
+#define ZERO(X) ZERO_ARRAY(N, X)
 
 #define PARALLEL_A() { \
 _Pragma("omp parallel num_threads(33) if (0)") \
@@ -117,14 +117,14 @@ int main(void) {
   //
   // Test: Barrier in a serialized parallel region.
   //
-  TESTD("omp target teams num_teams(1) thread_limit(33)", {
+  TESTD("omp target teams num_teams(1) thread_limit(32)", {
     PARALLEL_A()
   }, VERIFY(0, 1, B[i], i+1));
 
   //
   // Test: Barrier in a parallel region.
   //
-  for (int t = 1; t <= max_threads; t++) {
+  for (int t = 1; t <= max_threads; t += (t < 32) ? 31 : 32) {
     int threads[1]; threads[0] = t;
     TESTD("omp target teams num_teams(1) thread_limit(max_threads)", {
     ZERO(B);
@@ -138,11 +138,11 @@ int main(void) {
   //
   TESTD("omp target teams num_teams(1) thread_limit(max_threads)", {
   ZERO(B);
-  for (int t = 2; t <= max_threads; t++) {
+  for (int t = 32; t <= max_threads; t += 32) {
     int threads[1]; threads[0] = t;
     PARALLEL_B()
   }
-  }, VERIFY(0, max_threads-1, B[i], max_threads-i-1));
+  }, VERIFY(0, max_threads-1, B[i], (max_threads / 32) - (i+1) / 32));
 
   //
   // Test: Single thread in target region.
@@ -155,7 +155,7 @@ int main(void) {
   //
   // Test: Barrier in target parallel.
   //
-  for (int t = 2; t <= max_threads; t++) {
+  for (int t = 1; t <= max_threads; t += (t < 32) ? 31 : 32) {
     ZERO(B);
     int threads; threads = t;
     TESTD("omp target parallel num_threads(threads)", {
@@ -163,7 +163,6 @@ int main(void) {
     }, VERIFY(0, t-1, B[i], (trial+1)*1.0));
   }
   DUMP_SUCCESS(gpu_threads-max_threads);
-
 #if 0
   //
   // Test: Barrier in nested parallel in target region.
@@ -177,7 +176,6 @@ int main(void) {
     DUMP_SUCCESS(1);
   }
 #endif
-
   DUMP_SUCCESS(1);
 
   // target parallel + parallel

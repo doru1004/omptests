@@ -35,7 +35,8 @@ int main(void) {
   #undef NESTED_PARALLEL_FOR_CLAUSES
   #define NESTED_PARALLEL_FOR_CLAUSES proc_bind(master)
   #include "defines.h"
-  for (int t = 1; t <= 64; t++) {
+  for (int tt = 1; tt <= 64; tt++) {
+    int t = (t < 32) ? 1 : tt;
     int threads[1]; threads[0] = t-1;
     NESTED_PARALLEL_FOR(
     int tid = omp_get_thread_num(); \
@@ -60,8 +61,9 @@ int main(void) {
   #undef NESTED_PARALLEL_FOR_CLAUSES
   #define NESTED_PARALLEL_FOR_CLAUSES proc_bind(close)
   #include "defines.h"
-  for (int t = 1; t <= 64; t++) {
-    int threads[1]; threads[0] = t-1;
+  for (int tt = 1; tt <= 64; tt++) {
+    int t = (t < 32) ? 1 : tt;
+    int threads[1]; threads[0] = t-1;  
     NESTED_PARALLEL_FOR(
     int tid = omp_get_thread_num(); \
     S[tid] = 0; \
@@ -81,11 +83,12 @@ int main(void) {
     },
     VERIFY(0, t, S[i], (double) SUMS * (N/2*(N+1))))
   }
-
+  
   #undef NESTED_PARALLEL_FOR_CLAUSES
   #define NESTED_PARALLEL_FOR_CLAUSES proc_bind(spread)
   #include "defines.h"
-  for (int t = 1; t <= 64; t++) {
+  for (int tt = 1; tt <= 64; tt++) {
+    int t = (t < 32) ? 1 : tt;
     int threads[1]; threads[0] = t-1;
     NESTED_PARALLEL_FOR(
     int tid = omp_get_thread_num(); \
@@ -113,7 +116,8 @@ int main(void) {
   #undef NESTED_PARALLEL_FOR_CLAUSES
   #define NESTED_PARALLEL_FOR_CLAUSES private(p,q) shared(A,B,C,D,E)
   #include "defines.h"
-  for (int t = 1; t <= 64; t++) {
+  for (int tt = 1; tt <= 64; tt++) {
+    int t = (t < 32) ? 1 : tt;
     int threads[1]; threads[0] = t;
     NESTED_PARALLEL_FOR(
       double p = 2; \
@@ -146,7 +150,8 @@ int main(void) {
   #undef NESTED_PARALLEL_FOR_CLAUSES
   #define NESTED_PARALLEL_FOR_CLAUSES firstprivate(p,q)
   #include "defines.h"
-  for (int t = 1; t <= 64; t++) {
+  for (int tt = 1; tt <= 64; tt++) {
+    int t = (t < 32) ? 1 : tt;
     int threads[1]; threads[0] = t;
     NESTED_PARALLEL_FOR(
       double p = -4; \
@@ -178,7 +183,8 @@ int main(void) {
   //
   // Test: lastprivate clause on omp target parallel for with nested parallel.
   //
-  for (int t = 1; t <= 64; t++) {
+  for (int tt = 1; tt <= 64; tt++) {
+    int t = (t < 32) ? 1 : tt;
     int threads[1]; threads[0] = t;
     TESTD("omp target parallel num_threads(t)", {
       double q0[1];
@@ -224,7 +230,8 @@ int main(void) {
   #undef NESTED_PARALLEL_FOR_CLAUSES
   #define NESTED_PARALLEL_FOR_CLAUSES private(p)
   #include "defines.h"
-  for (int t = 1; t <= 64; t++) {
+  for (int tt = 1; tt <= 64; tt++) {
+    int t = (t < 32) ? 1 : tt;
     int threads[1]; threads[0] = t;
     NESTED_PARALLEL_FOR(
       double p[2]; \
@@ -258,7 +265,8 @@ int main(void) {
   #undef NESTED_PARALLEL_FOR_CLAUSES
   #define NESTED_PARALLEL_FOR_CLAUSES firstprivate(p)
   #include "defines.h"
-  for (int t = 1; t <= 64; t++) {
+  for (int tt = 1; tt <= 64; tt++) {
+    int t = (t < 32) ? 1 : tt;
     int threads[1]; threads[0] = t;
     NESTED_PARALLEL_FOR(
       double p[2]; \
@@ -294,7 +302,8 @@ int main(void) {
   #undef NESTED_PARALLEL_FOR_CLAUSES
   #define NESTED_PARALLEL_FOR_CLAUSES collapse(2)
   #include "defines.h"
-  for (int t = 1; t <= 64; t++) {
+  for (int tt = 1; tt <= 64; tt++) {
+    int t = (t < 32) ? 1 : tt;
     int threads[1]; threads[0] = t;
     NESTED_PARALLEL_FOR(
       int tid = omp_get_thread_num(); \

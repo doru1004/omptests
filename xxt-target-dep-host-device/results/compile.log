@@ -1,0 +1,49 @@
+clang version 7.0.0 (http://llvm.org/git/clang.git 54d71f0ca9e6bbb7f8688abadf9d1805b9babae8) (http://llvm.org/git/llvm.git ac8c393bd50a8d2b3f62a149bf97c37659e3c4e9)
+Target: powerpc64le-ibm-linux-gnu
+Thread model: posix
+InstalledDir: /home/gbercea/patch-compiler/obj-release/bin
+Found candidate GCC installation: /usr/lib/gcc/ppc64le-redhat-linux/4.8.2
+Found candidate GCC installation: /usr/lib/gcc/ppc64le-redhat-linux/4.8.5
+Selected GCC installation: /usr/lib/gcc/ppc64le-redhat-linux/4.8.5
+Candidate multilib: .;@m64
+Selected multilib: .;@m64
+Found CUDA installation: /usr/local/cuda-9.2, version 9.2
+ "/home/gbercea/patch-compiler/obj-release/bin/clang-7" -cc1 -triple powerpc64le-ibm-linux-gnu -emit-llvm-bc -emit-llvm-uselists -disable-free -main-file-name test.c -mrelocation-model pic -pic-level 2 -mthread-model posix -fmath-errno -masm-verbose -mconstructor-aliases -fuse-init-array -target-cpu pwr8 -mfloat-abi hard -target-abi elfv2 -dwarf-column-info -debugger-tuning=gdb -momit-leaf-frame-pointer -v -resource-dir /home/gbercea/patch-compiler/obj-release/lib/clang/7.0.0 -I /home/gbercea/patch-compiler/obj-release/lib -I /home/gbercea/patch-compiler/obj-release/lib/../ -I /home/gbercea/patch-compiler/obj-release/lib/../projects/openmp/runtime/src/ -internal-isystem /usr/local/include -internal-isystem /home/gbercea/patch-compiler/obj-release/lib/clang/7.0.0/include -internal-externc-isystem /include -internal-externc-isystem /usr/include -internal-isystem /usr/local/include -internal-isystem /home/gbercea/patch-compiler/obj-release/lib/clang/7.0.0/include -internal-externc-isystem /include -internal-externc-isystem /usr/include -O3 -fdebug-compilation-dir /home/gbercea/patch-compiler/src/projects/openmp/libomptarget/omptests/t-target-dep-host-device/results -ferror-limit 19 -fmessage-length 0 -fopenmp -fno-signed-char -fobjc-runtime=gcc -fdiagnostics-show-option -vectorize-loops -vectorize-slp -o /tmp/test-1a3ded.bc -x c /home/gbercea/patch-compiler/src/projects/openmp/libomptarget/omptests/t-target-dep-host-device/test.c -fopenmp-targets=nvptx64-nvidia-cuda
+clang -cc1 version 7.0.0 based upon LLVM 7.0.0svn default target powerpc64le-unknown-linux-gnu
+ignoring nonexistent directory "/include"
+ignoring nonexistent directory "/include"
+ignoring duplicate directory "/usr/local/include"
+ignoring duplicate directory "/home/gbercea/patch-compiler/obj-release/lib/clang/7.0.0/include"
+ignoring duplicate directory "/usr/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /home/gbercea/patch-compiler/obj-release/lib
+ /home/gbercea/patch-compiler/obj-release/lib/..
+ /home/gbercea/patch-compiler/obj-release/lib/../projects/openmp/runtime/src
+ /usr/local/include
+ /home/gbercea/patch-compiler/obj-release/lib/clang/7.0.0/include
+ /usr/include
+End of search list.
+ "/home/gbercea/patch-compiler/obj-release/bin/clang-7" -cc1 -triple nvptx64-nvidia-cuda -aux-triple powerpc64le-ibm-linux-gnu -S -disable-free -main-file-name test.c -mrelocation-model pic -pic-level 2 -mthread-model posix -mdisable-fp-elim -no-integrated-as -fuse-init-array -mlink-cuda-bitcode /usr/local/cuda-9.2/nvvm/libdevice/libdevice.10.bc -target-feature +ptx61 -mlink-cuda-bitcode /home/gbercea/patch-compiler/obj-release/lib/libomptarget-nvptx-sm_70.bc -target-cpu sm_70 -dwarf-column-info -debugger-tuning=gdb -v -resource-dir /home/gbercea/patch-compiler/obj-release/lib/clang/7.0.0 -I /home/gbercea/patch-compiler/obj-release/lib -I /home/gbercea/patch-compiler/obj-release/lib/../ -I /home/gbercea/patch-compiler/obj-release/lib/../projects/openmp/runtime/src/ -internal-isystem /usr/local/include -internal-isystem /home/gbercea/patch-compiler/obj-release/lib/clang/7.0.0/include -internal-externc-isystem /include -internal-externc-isystem /usr/include -internal-isystem /usr/local/include -internal-isystem /home/gbercea/patch-compiler/obj-release/lib/clang/7.0.0/include -internal-externc-isystem /include -internal-externc-isystem /usr/include -O3 -fno-dwarf-directory-asm -fdebug-compilation-dir /home/gbercea/patch-compiler/src/projects/openmp/libomptarget/omptests/t-target-dep-host-device/results -ferror-limit 19 -fmessage-length 0 -fopenmp -fobjc-runtime=gcc -fdiagnostics-show-option -vectorize-loops -vectorize-slp -o /tmp/test-9c1154.s -x c /home/gbercea/patch-compiler/src/projects/openmp/libomptarget/omptests/t-target-dep-host-device/test.c -fopenmp-is-device -fopenmp-host-ir-file-path /tmp/test-1a3ded.bc
+clang -cc1 version 7.0.0 based upon LLVM 7.0.0svn default target powerpc64le-unknown-linux-gnu
+ignoring nonexistent directory "/include"
+ignoring nonexistent directory "/include"
+ignoring duplicate directory "/usr/local/include"
+ignoring duplicate directory "/home/gbercea/patch-compiler/obj-release/lib/clang/7.0.0/include"
+ignoring duplicate directory "/usr/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /home/gbercea/patch-compiler/obj-release/lib
+ /home/gbercea/patch-compiler/obj-release/lib/..
+ /home/gbercea/patch-compiler/obj-release/lib/../projects/openmp/runtime/src
+ /usr/local/include
+ /home/gbercea/patch-compiler/obj-release/lib/clang/7.0.0/include
+ /usr/include
+End of search list.
+ "/usr/local/cuda-9.2/bin/ptxas" -m64 -O3 -v --gpu-name sm_70 --output-file /tmp/test-710b84.cubin /tmp/test-9c1154.s -c
+ptxas info    : 0 bytes gmem
+ "/usr/local/cuda-9.2/bin/nvlink" -o /tmp/test-4e5c05.out -v -arch sm_70 -L/home/gbercea/patch-compiler/obj-release/lib -L/usr/local/cuda-9.2/lib64 -L/usr/local/cuda-9.2/nvvm/libdevice -L/home/gbercea/patch-compiler/obj-release/lib -lomptarget-nvptx /tmp/test-710b84.cubin
+nvlink info    : 703720008 bytes gmem
+ "/home/gbercea/patch-compiler/obj-release/bin/clang-7" -cc1 -triple powerpc64le-ibm-linux-gnu -emit-obj -disable-free -main-file-name test.c -mrelocation-model pic -pic-level 2 -mthread-model posix -fmath-errno -masm-verbose -mconstructor-aliases -fuse-init-array -target-cpu pwr8 -mfloat-abi hard -target-abi elfv2 -dwarf-column-info -debugger-tuning=gdb -momit-leaf-frame-pointer -v -resource-dir /home/gbercea/patch-compiler/obj-release/lib/clang/7.0.0 -O3 -fdebug-compilation-dir /home/gbercea/patch-compiler/src/projects/openmp/libomptarget/omptests/t-target-dep-host-device/results -ferror-limit 19 -fmessage-length 0 -fopenmp -fno-signed-char -fobjc-runtime=gcc -fdiagnostics-show-option -vectorize-loops -vectorize-slp -o /tmp/test-93228a.o -x ir /tmp/test-1a3ded.bc
+clang -cc1 version 7.0.0 based upon LLVM 7.0.0svn default target powerpc64le-unknown-linux-gnu
+ "/usr/bin/ld" --hash-style=gnu --no-add-needed --eh-frame-hdr -m elf64lppc -dynamic-linker /lib64/ld64.so.2 -o /home/gbercea/patch-compiler/src/projects/openmp/libomptarget/omptests/t-target-dep-host-device/results/a.out /usr/lib/gcc/ppc64le-redhat-linux/4.8.5/../../../../lib64/crt1.o /usr/lib/gcc/ppc64le-redhat-linux/4.8.5/../../../../lib64/crti.o /usr/lib/gcc/ppc64le-redhat-linux/4.8.5/crtbegin.o -L/home/gbercea/patch-compiler/obj-release/lib -L/home/gbercea/patch-compiler/obj-release/lib -L/usr/lib/gcc/ppc64le-redhat-linux/4.8.5 -L/usr/lib/gcc/ppc64le-redhat-linux/4.8.5/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/ppc64le-redhat-linux/4.8.5/../../.. -L/home/gbercea/patch-compiler/obj-release/bin/../lib -L/lib -L/usr/lib /tmp/test-93228a.o -L/home/gbercea/patch-compiler/obj-release/lib -L/usr/local/cuda-9.2/lib64 -L/usr/local/cuda-9.2/nvvm/libdevice -lomp -lomptarget -lgcc --as-needed -lgcc_s --no-as-needed -lpthread -latomic -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/ppc64le-redhat-linux/4.8.5/crtend.o /usr/lib/gcc/ppc64le-redhat-linux/4.8.5/../../../../lib64/crtn.o -T /tmp/a-594872.lk

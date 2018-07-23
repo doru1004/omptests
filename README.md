@@ -1,2 +1,0 @@
-# omptests
-OpenMP tests

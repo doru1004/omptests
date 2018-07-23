@@ -11,7 +11,7 @@
 
 #define INIT() INIT_LOOP(N, {C[i] = 1; D[i] = i; E[i] = -i;})
 
-#define ZERO(X) ZERO_ARRAY(N, X) 
+#define ZERO(X) ZERO_ARRAY(N, X)
 
 int main(void) {
   check_offloading();
@@ -120,7 +120,7 @@ int main(void) {
   //
   // This test fails on Volta because a parallel region can only contain
   // <=32 or a multiple of 32 workers.
-  for (int t = 1; t <= 128; t += t < 32 ? 1 : 32) {
+  for (int t = 1; t <= 128; t += t < 32 ? 31 : 32) {
     ZERO(A);
     int threads[1]; threads[0] = t;
     TEST({

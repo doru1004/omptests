@@ -1,6 +1,6 @@
 include ../Makefile.defs
 
-EXTRAFLAGS := -O3 -fopenmp-version=45
+EXTRAFLAGS := -O2 -fopenmp-version=45
 
 ################################################################################
 #

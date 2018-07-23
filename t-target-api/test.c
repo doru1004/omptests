@@ -34,7 +34,7 @@ int main(void){
   printf("Default device outside task: %d\n", omp_get_default_device());
 
   // default device can set to whatever, if target fails, it goes to the host
-  const int default_device = 0;
+  const int default_device = 3;
   omp_set_default_device(default_device);
 
   // default device for omp target call MUST be >= 0 and <omp_get_num_devices() or

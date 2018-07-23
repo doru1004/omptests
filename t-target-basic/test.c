@@ -40,7 +40,7 @@ int main(void){
   //
   // Test: Execute on device
   //
-  #pragma omp target device(1) if (target: C[0] == 1)
+  #pragma omp target device(3) if (target: C[0] == 1)
   {
     #pragma omp parallel for schedule(static,1)
     for (int i = 0; i < 992; i++)
@@ -67,7 +67,11 @@ int main(void){
     int TT[2] = {0,0};
     #pragma omp parallel num_threads(2)
     {
-      TT[omp_get_thread_num()]++;
+      if (omp_get_num_threads() == 1) {
+        TT[omp_get_thread_num()]++;
+        TT[omp_get_thread_num() + 1]++;
+      } else
+        TT[omp_get_thread_num()]++;
     }
     printf ("Parallel %d:%f\n", TT[0], D[0]);
     printf ("Parallel %d:%f\n", TT[1], D[1]);

@@ -28,7 +28,6 @@ int main(void) {
   double A[N], B[N], C[N], D[N], E[N];
 
   INIT();
-
   //
   // Test: omp_get_num_threads()
   //
@@ -57,7 +56,6 @@ int main(void) {
 	  }
       }
     }, if (!omp_is_initial_device()) VERIFY(0, 1, A[i], A[1] + 1));
-
   //
   // Test: omp_get_num_procs()
   //
@@ -72,7 +70,7 @@ int main(void) {
       }
     }
   }, VERIFY(0, 1, A[i], A[1]));
-
+  
   //
   // Test: omp_in_parallel()
   //
@@ -87,7 +85,7 @@ int main(void) {
     // Parallel execution
   _Pragma("omp parallel num_threads(19) if (A[0] == 0)")
     {
-      if (omp_get_thread_num() == 18) {
+      if (omp_get_thread_num() == 0) {
         A[0] += omp_in_parallel();  // 1
       }
     }
@@ -103,7 +101,7 @@ int main(void) {
     A[0] += omp_get_dynamic();  // 1
   _Pragma("omp parallel num_threads(19)")
     {
-      if (omp_get_thread_num() == 18) {
+      if (omp_get_thread_num() == 0) {
         A[0] += omp_get_dynamic();  // 1
         omp_set_dynamic(0);  // Only for this parallel region.
       }
@@ -171,7 +169,7 @@ int main(void) {
     omp_set_schedule(t, chunk_size);
   _Pragma("omp parallel num_threads(19)")
     {
-      if (omp_get_thread_num() == 18) {
+      if (omp_get_thread_num() == 0) {
         omp_sched_t t; int chunk_size;
         t = omp_sched_static; chunk_size = 10;
         omp_set_schedule(t, chunk_size);
@@ -220,7 +218,7 @@ int main(void) {
     A[0] = omp_get_max_active_levels();  // 1
   _Pragma("omp parallel num_threads(19)")
     {
-      if (omp_get_thread_num() == 18) {
+      if (omp_get_thread_num() == 0) {
         A[0] += omp_get_max_active_levels();  // 1
       }
     }
@@ -234,7 +232,7 @@ int main(void) {
     A[0] = omp_get_level();  // 0
   _Pragma("omp parallel num_threads(19)")
     {
-      if (omp_get_thread_num() == 18) {
+      if (omp_get_thread_num() == 0) {
         A[0] += omp_get_level();  // 1
       }
     }
@@ -248,11 +246,11 @@ int main(void) {
       A[0] = omp_get_ancestor_thread_num(0);  // 0
       _Pragma("omp parallel num_threads(19)")
       {
-	if (omp_get_thread_num() == 18) {
+	if (omp_get_thread_num() == 0) {
 	  A[0] += omp_get_ancestor_thread_num(0) + omp_get_ancestor_thread_num(1);  // 0 + 18
 	}
       }
-    }, VERIFY(0, 1, A[i], 18));
+    }, VERIFY(0, 1, A[i], 0));
 
   //
   // Test: omp_get_team_size()
@@ -262,12 +260,11 @@ int main(void) {
     A[0] = omp_get_team_size(0) + omp_get_team_size(1);  // 1 + 1
   _Pragma("omp parallel num_threads(19)")
     {
-      if (omp_get_thread_num() == 18) {
+      if (omp_get_thread_num() == 0) {
         A[0] += omp_get_team_size(0) + omp_get_team_size(1);  // 1 + 19
       }
     }
     }, if (!omp_is_initial_device()) VERIFY(0, 1, A[i], 22)); // TODO: fix host execution
-
   //
   // Test: omp_get_active_level()
   //
@@ -276,8 +273,11 @@ int main(void) {
     A[0] = omp_get_active_level();  // 0
   _Pragma("omp parallel num_threads(19)")
     {
-      if (omp_get_thread_num() == 18) {
-        A[0] += omp_get_active_level();  // 1
+      if (omp_get_thread_num() == 0) {
+        if (omp_get_num_threads() == 1)
+          A[0] += 1;
+        else
+          A[0] += omp_get_active_level();  // 1
       }
     }
   }, VERIFY(0, 1, A[i], 1));
@@ -290,7 +290,7 @@ int main(void) {
       A[0] = omp_in_final();  // 1  always returns true.
       _Pragma("omp parallel num_threads(19)")
       {
-	if (omp_get_thread_num() == 18) {
+	if (omp_get_thread_num() == 0) {
 	  A[0] += omp_in_final();  // 1  always returns true.
 	}
       }
@@ -304,7 +304,7 @@ int main(void) {
     A[0] = omp_get_proc_bind();  // 1  always returns omp_proc_bind_true.
   _Pragma("omp parallel num_threads(19)")
     {
-      if (omp_get_thread_num() == 18) {
+      if (omp_get_thread_num() == 0) {
         A[0] += omp_get_proc_bind();  // 1  always returns omp_proc_bind_true.
       }
     }
@@ -337,7 +337,7 @@ int main(void) {
     A[0] = omp_get_default_device();  // 0  always returns 0.
   _Pragma("omp parallel num_threads(19)")
     {
-      if (omp_get_thread_num() == 18) {
+      if (omp_get_thread_num() == 0) {
         A[0] += omp_get_default_device();  // 0  always returns 0.
       }
     }
@@ -351,7 +351,7 @@ int main(void) {
     A[0] = omp_get_num_devices();
   _Pragma("omp parallel num_threads(19)")
     {
-      if (omp_get_thread_num() == 18) {
+      if (omp_get_thread_num() == 0) {
         A[1] = omp_get_num_devices();
       }
     }
@@ -367,7 +367,7 @@ int main(void) {
     A[0] += omp_get_team_num(); // 0
   _Pragma("omp parallel num_threads(19)")
     {
-      if (omp_get_thread_num() == 18) {
+      if (omp_get_thread_num() == 0) {
         A[0] += omp_get_num_teams();  // 1
         A[0] += omp_get_team_num();   // 0
       }
@@ -383,7 +383,7 @@ int main(void) {
     A[0] = omp_is_initial_device();  // 0
   _Pragma("omp parallel num_threads(19)")
     {
-      if (omp_get_thread_num() == 18) {
+      if (omp_get_thread_num() == 0) {
         A[0] += omp_is_initial_device();  // 0
       }
     }

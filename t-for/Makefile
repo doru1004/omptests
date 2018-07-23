@@ -4,6 +4,10 @@ ifeq ($(OMPTESTS_CUDA_COMPUTE_CAPABILITY),60)
         EXTRAFLAGS += --cuda-noopt-device-debug
 endif
 
+ifeq ($(OMPTESTS_CUDA_COMPUTE_CAPABILITY),70)
+        EXTRAFLAGS += --cuda-noopt-device-debug
+endif
+
 EXTRAFLAGS += -O3
 
 ################################################################################

@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
   {
     #pragma omp target enter data nowait map(to: a) depend(out: a)
     #pragma omp task depend(inout: a) shared(b)
-    { b++; /* printf("hi alex\n");*/ }
+    { b++; }
     #pragma omp target exit data nowait map(from: a) depend(in: a)
   }
   if (b==3) printf("success\n");

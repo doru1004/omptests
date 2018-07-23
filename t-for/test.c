@@ -346,11 +346,27 @@ int main(void) {
       }
     }, VERIFY(0, 1, S[0], (N/2*(N+1)) ));
   }
-
   //
   // Test: Ensure coalesced scheduling on GPU.
   //
   if (!cpuExec) {
+    int nthreads = 0;
+    // if the size of the iteration space does not
+    // exactly divide by the number of threads then
+    // there will be a residual number of values that
+    // need to be handled. The sum of these values is
+    // the sum of the first n natural numbers.
+    int residual;
+    #pragma omp target map(tofrom: nthreads)
+    #pragma omp teams num_teams(1) thread_limit(33)
+    #pragma omp parallel num_threads(33)
+    for (int i = 0; i < 99; i++) {
+      if (i == 0)
+        nthreads = omp_get_num_threads();
+    }
+
+    residual = 99 - nthreads * (99 / nthreads);
+    
     TESTD("omp target teams num_teams(1) thread_limit(33)", {
       S[0] = 0;
       for (int i = 0; i < 99; i++) {
@@ -376,7 +392,7 @@ int main(void) {
         tmp += A[i];
       }
       S[0] = tmp;
-    }, VERIFY(0, 1, S[0], 3 * (33*33 + 66*33) ));
+    }, VERIFY(0, 1, S[0], 3 * ( 99 * 98 * 0.5 - 3 * 0.5 * nthreads * (nthreads - 1) - 0.5 * residual * (residual - 1)) ));
   } else {
     DUMP_SUCCESS(1);
   }
