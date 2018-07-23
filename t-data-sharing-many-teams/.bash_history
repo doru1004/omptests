@@ -1,0 +1,3 @@
+start_new_history
+/localhd/gbercea/compiler/obj-release/bin/clang++ -I/localhd/gbercea/compiler/lomp/lomp/source/lib64 -I/localhd/gbercea/compiler/lomp/lomp/source/lib64/../ -I/localhd/gbercea/compiler/lomp/lomp/source/lib64/../projects/openmp/runtime/src/  -std=c++11 -v -L/localhd/gbercea/compiler/lomp/lomp/source/lib64 -L/localhd/gbercea/compiler/lomp/lomp/source/lib64 -target powerpc64le-ibm-linux-gnu -mcpu=pwr8 -fopenmp=libomp -fopenmp-targets=nvptx64-nvidia-cuda -O0 -fno-exceptions /localhd/gbercea/compiler/src/projects/openmp/libomptarget/omptests/t-data-sharing-many-teams/test.cpp -o /localhd/gbercea/compiler/src/projects/openmp/libomptarget/omptests/t-data-sharing-many-teams/results/a.out
+cd -

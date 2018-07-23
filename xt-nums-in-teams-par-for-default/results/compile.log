@@ -1,0 +1,109 @@
+clang version 4.0.0 (ibmgithub:/CORAL-LLVM-Compilers/clang.git 198c026eb0465d81f5aceced8050fc647d403bd9) (ibmgithub:/CORAL-LLVM-Compilers/llvm.git 41b9e0213f1c53c837df11c33d91039e377a285d)
+Target: powerpc64le-ibm-linux-gnu
+Thread model: posix
+InstalledDir: /local/gbercea/compiler/obj-release/bin
+Found candidate GCC installation: /usr/lib/gcc/powerpc64le-linux-gnu/4.8
+Found candidate GCC installation: /usr/lib/gcc/powerpc64le-linux-gnu/4.8.4
+Found candidate GCC installation: /usr/lib/gcc/powerpc64le-linux-gnu/4.9
+Found candidate GCC installation: /usr/lib/gcc/powerpc64le-linux-gnu/4.9.1
+Selected GCC installation: /usr/lib/gcc/powerpc64le-linux-gnu/4.8
+Candidate multilib: .;@m64
+Selected multilib: .;@m64
+Found CUDA installation: /usr/local/cuda-8.0, version 8.0
+ "/local/gbercea/compiler/obj-release/bin/clang-4.0" -cc1 -triple powerpc64le-ibm-linux-gnu -emit-llvm-bc -emit-llvm-uselists -disable-free -main-file-name test.cpp -mrelocation-model pic -pic-level 2 -mthread-model posix -mdisable-fp-elim -fmath-errno -masm-verbose -mconstructor-aliases -fuse-init-array -target-cpu pwr8 -mfloat-abi hard -target-abi elfv2 -v -dwarf-column-info -debugger-tuning=gdb -resource-dir /local/gbercea/compiler/obj-release/bin/../lib/clang/4.0.0 -I /local/gbercea/compiler/lomp/lomp/source/lib64 -I /local/gbercea/compiler/lomp/lomp/source/lib64/../ -I /local/gbercea/compiler/lomp/lomp/source/lib64/../projects/openmp/runtime/src/ -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8 -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8 -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8 -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8/backward -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8 -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8 -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8 -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8/backward -internal-isystem /usr/local/include -internal-isystem /local/gbercea/compiler/obj-release/bin/../lib/clang/4.0.0/include -internal-externc-isystem /usr/include/powerpc64le-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -internal-isystem /usr/local/include -internal-isystem /local/gbercea/compiler/obj-release/bin/../lib/clang/4.0.0/include -internal-externc-isystem /usr/include/powerpc64le-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -O3 -std=c++11 -fdeprecated-macro -fdebug-compilation-dir /local/gbercea/compiler/src/projects/openmp/libomptarget/omptests/t-nums-in-teams-par-for-default/results -ferror-limit 19 -fmessage-length 0 -fopenmp -fno-signed-char -fobjc-runtime=gcc -fcxx-exceptions -fexceptions -fdiagnostics-show-option -vectorize-loops -vectorize-slp -o /tmp/test-4fb3fe.bc -x c++ /local/gbercea/compiler/src/projects/openmp/libomptarget/omptests/t-nums-in-teams-par-for-default/test.cpp -fopenmp-targets=nvptx64-nvidia-cuda
+clang -cc1 version 4.0.0 based upon LLVM 4.0.0svn default target powerpc64le-unknown-linux-gnu
+ignoring nonexistent directory "/local/gbercea/compiler/lomp/lomp/source/lib64/../projects/openmp/runtime/src/"
+ignoring nonexistent directory "/include"
+ignoring nonexistent directory "/include"
+ignoring duplicate directory "/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8"
+ignoring duplicate directory "/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8"
+ignoring duplicate directory "/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8"
+ignoring duplicate directory "/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8"
+ignoring duplicate directory "/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8/backward"
+ignoring duplicate directory "/usr/local/include"
+ignoring duplicate directory "/local/gbercea/compiler/obj-release/bin/../lib/clang/4.0.0/include"
+ignoring duplicate directory "/usr/include/powerpc64le-linux-gnu"
+ignoring duplicate directory "/usr/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /local/gbercea/compiler/lomp/lomp/source/lib64
+ /local/gbercea/compiler/lomp/lomp/source/lib64/..
+ /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8
+ /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8
+ /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8/backward
+ /usr/local/include
+ /local/gbercea/compiler/obj-release/bin/../lib/clang/4.0.0/include
+ /usr/include/powerpc64le-linux-gnu
+ /usr/include
+End of search list.
+ "/local/gbercea/compiler/obj-release/bin/clang-4.0" -cc1 -triple nvptx64-nvidia-cuda -aux-triple powerpc64le-ibm-linux-gnu -S -disable-free -main-file-name test.cpp -mrelocation-model pic -pic-level 2 -mthread-model posix -mdisable-fp-elim -fmath-errno -no-integrated-as -fuse-init-array -mlink-cuda-bitcode /usr/local/cuda-8.0/nvvm/libdevice/libdevice.compute_35.10.bc -target-feature +ptx42 -mlink-cuda-bitcode /local/gbercea/compiler/obj-release/lib/libomptarget-nvptx.bc -target-cpu sm_37 -v -v -dwarf-column-info -resource-dir /local/gbercea/compiler/obj-release/bin/../lib/clang/4.0.0 -I /local/gbercea/compiler/lomp/lomp/source/lib64 -I /local/gbercea/compiler/lomp/lomp/source/lib64/../ -I /local/gbercea/compiler/lomp/lomp/source/lib64/../projects/openmp/runtime/src/ -I /local/gbercea/compiler/lomp/lomp/source/lib64 -I /local/gbercea/compiler/lomp/lomp/source/lib64/../ -I /local/gbercea/compiler/lomp/lomp/source/lib64/../projects/openmp/runtime/src/ -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8 -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8 -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8 -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8/backward -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8 -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8 -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8 -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8/backward -internal-isystem /usr/local/include -internal-isystem /local/gbercea/compiler/obj-release/bin/../lib/clang/4.0.0/include -internal-externc-isystem /usr/include/powerpc64le-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -internal-isystem /usr/local/include -internal-isystem /local/gbercea/compiler/obj-release/bin/../lib/clang/4.0.0/include -internal-externc-isystem /usr/include/powerpc64le-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -O3 -std=c++11 -fdeprecated-macro -fno-dwarf-directory-asm -fdebug-compilation-dir /local/gbercea/compiler/src/projects/openmp/libomptarget/omptests/t-nums-in-teams-par-for-default/results -ferror-limit 19 -fmessage-length 0 -fopenmp -fobjc-runtime=gcc -fcxx-exceptions -fexceptions -fdiagnostics-show-option -vectorize-loops -vectorize-slp -o /tmp/test-ddf4f4.s -x c++ /local/gbercea/compiler/src/projects/openmp/libomptarget/omptests/t-nums-in-teams-par-for-default/test.cpp -fopenmp-is-device -fopenmp-host-ir-file-path /tmp/test-4fb3fe.bc
+clang -cc1 version 4.0.0 based upon LLVM 4.0.0svn default target powerpc64le-unknown-linux-gnu
+ignoring nonexistent directory "/local/gbercea/compiler/lomp/lomp/source/lib64/../projects/openmp/runtime/src/"
+ignoring nonexistent directory "/local/gbercea/compiler/lomp/lomp/source/lib64/../projects/openmp/runtime/src/"
+ignoring nonexistent directory "/include"
+ignoring nonexistent directory "/include"
+ignoring duplicate directory "/local/gbercea/compiler/lomp/lomp/source/lib64"
+ignoring duplicate directory "/local/gbercea/compiler/lomp/lomp/source/lib64/.."
+ignoring duplicate directory "/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8"
+ignoring duplicate directory "/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8"
+ignoring duplicate directory "/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8"
+ignoring duplicate directory "/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8"
+ignoring duplicate directory "/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8/backward"
+ignoring duplicate directory "/usr/local/include"
+ignoring duplicate directory "/local/gbercea/compiler/obj-release/bin/../lib/clang/4.0.0/include"
+ignoring duplicate directory "/usr/include/powerpc64le-linux-gnu"
+ignoring duplicate directory "/usr/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /local/gbercea/compiler/lomp/lomp/source/lib64
+ /local/gbercea/compiler/lomp/lomp/source/lib64/..
+ /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8
+ /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8
+ /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8/backward
+ /usr/local/include
+ /local/gbercea/compiler/obj-release/bin/../lib/clang/4.0.0/include
+ /usr/include/powerpc64le-linux-gnu
+ /usr/include
+End of search list.
+ "/usr/local/cuda-8.0/bin/ptxas" -m64 -O3 -v --gpu-name sm_37 --output-file /tmp/test-5ef0c0.o /tmp/test-ddf4f4.s -c
+ptxas info    : 48 bytes gmem
+ptxas info    : Compiling entry function '__omp_offloading_802_2760957_main_l67' for 'sm_37'
+ptxas info    : Function properties for __omp_offloading_802_2760957_main_l67
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 21 registers, 360 bytes cmem[0]
+ptxas info    : Compiling entry function '__omp_offloading_802_2681cbc__Z16check_offloadingv_l22' for 'sm_37'
+ptxas info    : Function properties for __omp_offloading_802_2681cbc__Z16check_offloadingv_l22
+    8 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 12 registers, 336 bytes cmem[0]
+ptxas info    : Compiling entry function '__omp_offloading_802_2760957_main_l97' for 'sm_37'
+ptxas info    : Function properties for __omp_offloading_802_2760957_main_l97
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 21 registers, 368 bytes cmem[0]
+ptxas info    : Compiling entry function '__omp_offloading_802_2760957_main_l38' for 'sm_37'
+ptxas info    : Function properties for __omp_offloading_802_2760957_main_l38
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 21 registers, 352 bytes cmem[0]
+ "/bin/cp" /tmp/test-5ef0c0.o /tmp/test-5ef0c0-d1eec2.cubin
+ "/usr/local/cuda-8.0/bin/nvcc" -dlink -cubin -o /tmp/test-cc07cd.out -v -arch sm_37 -L/local/gbercea/compiler/obj-release/lib -L/usr/local/cuda/lib64 -L/usr/local/cuda/nvvm/libdevice -L/local/gbercea/compiler/lomp/lomp/source/lib64 -L/local/gbercea/compiler/lomp/lomp/source/lib64 -L/local/gbercea/compiler/lomp/lomp/source/lib64 -L/local/gbercea/compiler/lomp/lomp/source/lib64 -L/local/gbercea/compiler/obj-release/lib -lomptarget-nvptx /tmp/test-5ef0c0-d1eec2.cubin
+#$ _SPACE_= 
+#$ _CUDART_=cudart
+#$ _HERE_=/usr/local/cuda-8.0/bin
+#$ _THERE_=/usr/local/cuda-8.0/bin
+#$ _TARGET_SIZE_=
+#$ _TARGET_DIR_=
+#$ _TARGET_DIR_=targets/ppc64le-linux
+#$ TOP=/usr/local/cuda-8.0/bin/..
+#$ NVVMIR_LIBRARY_DIR=/usr/local/cuda-8.0/bin/../nvvm/libdevice
+#$ LD_LIBRARY_PATH=/usr/local/cuda-8.0/bin/../lib:/local/gbercea/compiler/lomp/lomp/source/lib64:/local/gbercea/compiler/lomp/lomp/source/lib64:/local/gbercea/compiler/obj-release/lib:/usr/local/cuda/lib64:/local/gbercea/compiler/src/projects/openmp/libomptarget/omptests/t-nums-in-teams-par-for-default/results:
+#$ PATH=/usr/local/cuda-8.0/bin/../open64/bin:/usr/local/cuda-8.0/bin/../nvvm/bin:/usr/local/cuda-8.0/bin:/usr/local/cuda-8.0/bin:/usr/lib/jvm/java-8-openjdk-ppc64el/bin:/usr/lpp/mmfs/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/cuda/bin:/gsa/yktgsa/home/g/b/gbercea/.local/bin:/gsa/yktgsa/home/g/b/gbercea/bin:/gsa/yktgsa/home/g/b/gbercea/local/bin
+#$ INCLUDES="-I/usr/local/cuda-8.0/bin/../targets/ppc64le-linux/include"  
+#$ LIBRARIES=  "-L/usr/local/cuda-8.0/bin/../targets/ppc64le-linux/lib/stubs" "-L/usr/local/cuda-8.0/bin/../targets/ppc64le-linux/lib"
+#$ CUDAFE_FLAGS=
+#$ PTXAS_FLAGS=
+#$ fatbinary --create="/tmp/tmpxft_000139d0_00000000-2_test-5ef0c0-d1eec2.fatbin" -64 --cmdline="--compile-only  " "--image=profile=sm_37,file=/tmp/test-5ef0c0-d1eec2.cubin" --embedded-fatbin="/tmp/tmpxft_000139d0_00000000-2_test-5ef0c0-d1eec2.fatbin.c"  --device-c
+#$ rm /tmp/tmpxft_000139d0_00000000-2_test-5ef0c0-d1eec2.fatbin
+#$ gcc -c -x c++ -DFATBINFILE="\"/tmp/tmpxft_000139d0_00000000-2_test-5ef0c0-d1eec2.fatbin.c\"" -I. -D__NV_MODULE_ID="_tmp_tmpxft_000139d0_00000000_6_test_5ef0c0_d1eec2_o" "-I/usr/local/cuda-8.0/bin/../targets/ppc64le-linux/include"   -D"__CUDACC_VER__=80061" -D"__CUDACC_VER_BUILD__=61" -D"__CUDACC_VER_MINOR__=0" -D"__CUDACC_VER_MAJOR__=8" -o "/tmp/tmpxft_000139d0_00000000-6_test-5ef0c0-d1eec2.o" "/usr/local/cuda-8.0/bin/crt/prelink.stub" 
+#$ nvlink --arch=sm_37 -m64 -L"/local/gbercea/compiler/obj-release/lib" -L"/usr/local/cuda/lib64" -L"/usr/local/cuda/nvvm/libdevice" -L"/local/gbercea/compiler/lomp/lomp/source/lib64" -L"/local/gbercea/compiler/lomp/lomp/source/lib64" -L"/local/gbercea/compiler/lomp/lomp/source/lib64" -L"/local/gbercea/compiler/lomp/lomp/source/lib64" -L"/local/gbercea/compiler/obj-release/lib" -lomptarget-nvptx   "-L/usr/local/cuda-8.0/bin/../targets/ppc64le-linux/lib/stubs" "-L/usr/local/cuda-8.0/bin/../targets/ppc64le-linux/lib" -cpu-arch=PPC64LE "/tmp/tmpxft_000139d0_00000000-6_test-5ef0c0-d1eec2.o"  -lcudadevrt  -o "/tmp/test-cc07cd.out"
+ "/local/gbercea/compiler/obj-release/bin/clang-4.0" -cc1 -triple powerpc64le-ibm-linux-gnu -emit-obj -disable-free -main-file-name test.cpp -mrelocation-model pic -pic-level 2 -mthread-model posix -mdisable-fp-elim -fmath-errno -masm-verbose -mconstructor-aliases -fuse-init-array -target-cpu pwr8 -mfloat-abi hard -target-abi elfv2 -v -dwarf-column-info -debugger-tuning=gdb -resource-dir /local/gbercea/compiler/obj-release/bin/../lib/clang/4.0.0 -O3 -std=c++11 -fdebug-compilation-dir /local/gbercea/compiler/src/projects/openmp/libomptarget/omptests/t-nums-in-teams-par-for-default/results -ferror-limit 19 -fmessage-length 0 -fopenmp -fno-signed-char -fobjc-runtime=gcc -fdiagnostics-show-option -vectorize-loops -vectorize-slp -o /tmp/test-011b40.o -x ir /tmp/test-4fb3fe.bc
+clang -cc1 version 4.0.0 based upon LLVM 4.0.0svn default target powerpc64le-unknown-linux-gnu
+ "/usr/bin/ld" -z relro --hash-style=gnu --eh-frame-hdr -m elf64lppc -dynamic-linker /lib64/ld64.so.2 -o /local/gbercea/compiler/src/projects/openmp/libomptarget/omptests/t-nums-in-teams-par-for-default/results/a.out /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../powerpc64le-linux-gnu/crt1.o /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../powerpc64le-linux-gnu/crti.o /usr/lib/gcc/powerpc64le-linux-gnu/4.8/crtbegin.o -L/local/gbercea/compiler/lomp/lomp/source/lib64 -L/local/gbercea/compiler/lomp/lomp/source/lib64 -L/usr/lib/gcc/powerpc64le-linux-gnu/4.8 -L/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../powerpc64le-linux-gnu -L/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../lib64 -L/lib/powerpc64le-linux-gnu -L/lib/../lib64 -L/usr/lib/powerpc64le-linux-gnu -L/usr/lib/../lib64 -L/usr/lib/powerpc64le-linux-gnu/../../lib64 -L/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../.. -L/local/gbercea/compiler/obj-release/bin/../lib -L/lib -L/usr/lib /tmp/test-011b40.o -L/local/gbercea/compiler/obj-release/lib -L/usr/local/cuda/lib64 -L/usr/local/cuda/nvvm/libdevice -lstdc++ -lm -lomp -lomptarget -lgcc_s -lgcc -lpthread -lc -lgcc_s -lgcc /usr/lib/gcc/powerpc64le-linux-gnu/4.8/crtend.o /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../powerpc64le-linux-gnu/crtn.o -T /tmp/a-91d85c.lk

@@ -1,0 +1,231 @@
+clang version 7.0.0 (http://llvm.org/git/clang.git 0f6b139a0ce2f74a708f120da6336c05c14ea1cb) (http://llvm.org/git/llvm.git a02ad35dfa959d5c50a5d0008b010e5fb0c5cbe8)
+Target: powerpc64le-ibm-linux-gnu
+Thread model: posix
+InstalledDir: /localhd/gbercea/patch-compiler/obj-release/bin
+Found candidate GCC installation: /usr/lib/gcc/powerpc64le-linux-gnu/4.8
+Found candidate GCC installation: /usr/lib/gcc/powerpc64le-linux-gnu/4.8.4
+Found candidate GCC installation: /usr/lib/gcc/powerpc64le-linux-gnu/4.9
+Found candidate GCC installation: /usr/lib/gcc/powerpc64le-linux-gnu/4.9.1
+Selected GCC installation: /usr/lib/gcc/powerpc64le-linux-gnu/4.8
+Candidate multilib: .;@m64
+Selected multilib: .;@m64
+Found CUDA installation: /usr/local/cuda-8.0, version 8.0
+ "/localhd/gbercea/patch-compiler/obj-release/bin/clang-6.0" -cc1 -triple powerpc64le-ibm-linux-gnu -emit-llvm-bc -emit-llvm-uselists -disable-free -main-file-name test.cpp -mrelocation-model pic -pic-level 2 -mthread-model posix -mdisable-fp-elim -fmath-errno -masm-verbose -mconstructor-aliases -fuse-init-array -target-cpu pwr8 -mfloat-abi hard -target-abi elfv2 -dwarf-column-info -debugger-tuning=gdb -v -resource-dir /localhd/gbercea/patch-compiler/obj-release/lib/clang/7.0.0 -I /localhd/gbercea/patch-compiler/obj-release/lib -I /localhd/gbercea/patch-compiler/obj-release/lib/../ -I /localhd/gbercea/patch-compiler/obj-release/lib/../projects/openmp/runtime/src/ -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8 -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8 -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8 -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8/backward -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8 -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8 -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8 -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8/backward -internal-isystem /usr/local/include -internal-isystem /localhd/gbercea/patch-compiler/obj-release/lib/clang/7.0.0/include -internal-externc-isystem /usr/include/powerpc64le-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -internal-isystem /usr/local/include -internal-isystem /localhd/gbercea/patch-compiler/obj-release/lib/clang/7.0.0/include -internal-externc-isystem /usr/include/powerpc64le-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -std=c++0x -fdeprecated-macro -fdebug-compilation-dir /localhd/gbercea/patch-compiler/src/projects/openmp/libomptarget/omptests/t-raja/results -ferror-limit 19 -fmessage-length 0 -fopenmp -fno-signed-char -fobjc-runtime=gcc -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o /tmp/test-e51d33.bc -x c++ /localhd/gbercea/patch-compiler/src/projects/openmp/libomptarget/omptests/t-raja/test.cpp -fopenmp-targets=nvptx64-nvidia-cuda -faddrsig
+clang -cc1 version 7.0.0 based upon LLVM 7.0.0svn default target powerpc64le-unknown-linux-gnu
+ignoring nonexistent directory "/include"
+ignoring nonexistent directory "/include"
+ignoring duplicate directory "/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8"
+ignoring duplicate directory "/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8"
+ignoring duplicate directory "/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8"
+ignoring duplicate directory "/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8"
+ignoring duplicate directory "/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8/backward"
+ignoring duplicate directory "/usr/local/include"
+ignoring duplicate directory "/localhd/gbercea/patch-compiler/obj-release/lib/clang/7.0.0/include"
+ignoring duplicate directory "/usr/include/powerpc64le-linux-gnu"
+ignoring duplicate directory "/usr/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /localhd/gbercea/patch-compiler/obj-release/lib
+ /localhd/gbercea/patch-compiler/obj-release/lib/..
+ /localhd/gbercea/patch-compiler/obj-release/lib/../projects/openmp/runtime/src
+ /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8
+ /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8
+ /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8/backward
+ /usr/local/include
+ /localhd/gbercea/patch-compiler/obj-release/lib/clang/7.0.0/include
+ /usr/include/powerpc64le-linux-gnu
+ /usr/include
+End of search list.
+ "/localhd/gbercea/patch-compiler/obj-release/bin/clang-6.0" -cc1 -triple nvptx64-nvidia-cuda -aux-triple powerpc64le-ibm-linux-gnu -S -disable-free -main-file-name test.cpp -mrelocation-model pic -pic-level 2 -mthread-model posix -mdisable-fp-elim -no-integrated-as -fuse-init-array -mlink-cuda-bitcode /usr/local/cuda-8.0/nvvm/libdevice/libdevice.compute_35.10.bc -target-feature +ptx42 -mlink-cuda-bitcode /localhd/gbercea/patch-compiler/obj-release/lib/libomptarget-nvptx-sm_37.bc -target-cpu sm_37 -dwarf-column-info -debugger-tuning=gdb -v -resource-dir /localhd/gbercea/patch-compiler/obj-release/lib/clang/7.0.0 -I /localhd/gbercea/patch-compiler/obj-release/lib -I /localhd/gbercea/patch-compiler/obj-release/lib/../ -I /localhd/gbercea/patch-compiler/obj-release/lib/../projects/openmp/runtime/src/ -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8 -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8 -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8 -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8/backward -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8 -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8 -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8 -internal-isystem /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8/backward -internal-isystem /usr/local/include -internal-isystem /localhd/gbercea/patch-compiler/obj-release/lib/clang/7.0.0/include -internal-externc-isystem /usr/include/powerpc64le-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -internal-isystem /usr/local/include -internal-isystem /localhd/gbercea/patch-compiler/obj-release/lib/clang/7.0.0/include -internal-externc-isystem /usr/include/powerpc64le-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -std=c++0x -fdeprecated-macro -fno-dwarf-directory-asm -fdebug-compilation-dir /localhd/gbercea/patch-compiler/src/projects/openmp/libomptarget/omptests/t-raja/results -ferror-limit 19 -fmessage-length 0 -fopenmp -fobjc-runtime=gcc -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o /tmp/test-800a66.s -x c++ /localhd/gbercea/patch-compiler/src/projects/openmp/libomptarget/omptests/t-raja/test.cpp -fopenmp-is-device -fopenmp-host-ir-file-path /tmp/test-e51d33.bc
+clang -cc1 version 7.0.0 based upon LLVM 7.0.0svn default target powerpc64le-unknown-linux-gnu
+ignoring nonexistent directory "/include"
+ignoring nonexistent directory "/include"
+ignoring duplicate directory "/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8"
+ignoring duplicate directory "/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8"
+ignoring duplicate directory "/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8"
+ignoring duplicate directory "/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8"
+ignoring duplicate directory "/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8/backward"
+ignoring duplicate directory "/usr/local/include"
+ignoring duplicate directory "/localhd/gbercea/patch-compiler/obj-release/lib/clang/7.0.0/include"
+ignoring duplicate directory "/usr/include/powerpc64le-linux-gnu"
+ignoring duplicate directory "/usr/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /localhd/gbercea/patch-compiler/obj-release/lib
+ /localhd/gbercea/patch-compiler/obj-release/lib/..
+ /localhd/gbercea/patch-compiler/obj-release/lib/../projects/openmp/runtime/src
+ /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8
+ /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/powerpc64le-linux-gnu/c++/4.8
+ /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../include/c++/4.8/backward
+ /usr/local/include
+ /localhd/gbercea/patch-compiler/obj-release/lib/clang/7.0.0/include
+ /usr/include/powerpc64le-linux-gnu
+ /usr/include
+End of search list.
+ "/usr/local/cuda-8.0/bin/ptxas" -m64 -O0 -v --gpu-name sm_37 --output-file /tmp/test-53b087.cubin /tmp/test-800a66.s -c
+ptxas info    : 114 bytes gmem
+ptxas info    : Function properties for _ZN25omptarget_nvptx_TeamDescr13InitTeamDescrEv
+    8 bytes stack frame, 8 bytes spill stores, 8 bytes spill loads
+ptxas info    : Function properties for _ZL17getMasterThreadIdv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _Z24GetNumberOfWorkersInTeamv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _Z25GetNumberOfBlocksInKernelv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZN36omptarget_nvptx_ThreadPrivateContext4PrivEi
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZN27omptarget_nvptx_LoopSupportIiiE15for_static_initEiPiS1_S1_S1_ibb
+    88 bytes stack frame, 64 bytes spill stores, 64 bytes spill loads
+ptxas info    : Function properties for _Z13isGenericModev
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZN25omptarget_nvptx_TeamDescr23GetPreallocatedSlotAddrEi
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZL9atomicAddPyy11
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZN25omptarget_nvptx_WorkDescr13InitWorkDescrEv
+    8 bytes stack frame, 8 bytes spill stores, 8 bytes spill loads
+ptxas info    : Function properties for _ZN27omptarget_nvptx_LoopSupportIiiE14ForStaticChunkERiS1_S1_S1_iii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _Z4smidv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZL14IsMasterThreadv
+    8 bytes stack frame, 4 bytes spill stores, 4 bytes spill loads
+ptxas info    : Function properties for _ZN21omptarget_nvptx_QueueI36omptarget_nvptx_ThreadPrivateContextLj16EE14ENQUEUE_TICKETEv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZN25omptarget_nvptx_TeamDescr18LevelZeroTaskDescrEv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for __kmpc_data_sharing_pop_stack
+    16 bytes stack frame, 16 bytes spill stores, 16 bytes spill loads
+ptxas info    : Function properties for _ZN36omptarget_nvptx_ThreadPrivateContext20GetTopLevelTaskDescrEi
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZZ4mainENK3$_0clEi
+    40 bytes stack frame, 20 bytes spill stores, 20 bytes spill loads
+ptxas info    : Function properties for _ZN21omptarget_nvptx_QueueI36omptarget_nvptx_ThreadPrivateContextLj16EE9IsServingEjj
+    8 bytes stack frame, 4 bytes spill stores, 4 bytes spill loads
+ptxas info    : Function properties for _ZN25omptarget_nvptx_TeamDescr5RootSEib
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _Z21GetNumberOfOmpThreadsibb
+    8 bytes stack frame, 4 bytes spill stores, 4 bytes spill loads
+ptxas info    : Function properties for __kmpc_spmd_kernel_init
+    48 bytes stack frame, 44 bytes spill stores, 44 bytes spill loads
+ptxas info    : Function properties for _ZL9getWarpIdv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for __kmpc_spmd_kernel_deinit
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZN28omptarget_nvptx_CounterGroup5ResetEv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZL13getNumThreadsv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _Z18GetThreadIdInBlockv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Compiling entry function '__omp_offloading_811_27c6c0c__Z6forallIZ4mainE3$_0EviiT__l8' for 'sm_37'
+ptxas info    : Function properties for __omp_offloading_811_27c6c0c__Z6forallIZ4mainE3$_0EviiT__l8
+    32 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 24 registers, 344 bytes cmem[0]
+ptxas info    : Function properties for _ZN21omptarget_nvptx_QueueI36omptarget_nvptx_ThreadPrivateContextLj16EE14DEQUEUE_TICKETEv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _Z22GetNumberOfProcsInTeamv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _Z12GetOmpTeamIdv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _Z19getMyTeamDescriptorv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZL9getLaneIdv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZL10atomicExchPyy
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZN25omptarget_nvptx_TaskDescr11ThreadLimitEv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for __kmpc_for_static_init_4
+    48 bytes stack frame, 44 bytes spill stores, 44 bytes spill loads
+ptxas info    : Function properties for _Z25GetNumberOfThreadsInBlockv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _Z30data_sharing_init_stack_commonv
+    16 bytes stack frame, 12 bytes spill stores, 12 bytes spill loads
+ptxas info    : Function properties for _ZN21omptarget_nvptx_QueueI36omptarget_nvptx_ThreadPrivateContextLj16EE11DoneServingEjj
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZN25omptarget_nvptx_WorkDescr12CounterGroupEv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZL11getThreadIdv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZN25omptarget_nvptx_TeamDescr9WorkDescrEv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _Z18GetBlockIdInKernelv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZN28omptarget_nvptx_CounterGroup4InitERy
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _Z25GetLogicalThreadIdInBlockv
+    8 bytes stack frame, 4 bytes spill stores, 4 bytes spill loads
+ptxas info    : Function properties for __kmpc_for_static_fini
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for __kmpc_data_sharing_push_stack
+    48 bytes stack frame, 48 bytes spill stores, 48 bytes spill loads
+ptxas info    : Function properties for _ZL9atomicAddPjj
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZN28omptarget_nvptx_CounterGroup5ClearEv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZN27omptarget_nvptx_LoopSupportIiiE16ForStaticNoChunkERiS1_S1_S1_S1_ii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZN21omptarget_nvptx_QueueI36omptarget_nvptx_ThreadPrivateContextLj16EE7DequeueEv
+    24 bytes stack frame, 24 bytes spill stores, 24 bytes spill loads
+ptxas info    : Function properties for _Z10SafeMallocmPKc
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZN21omptarget_nvptx_QueueI36omptarget_nvptx_ThreadPrivateContextLj16EE11PushElementEjPS0_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZN25omptarget_nvptx_TaskDescr21InitLevelOneTaskDescrEtPS_
+    24 bytes stack frame, 20 bytes spill stores, 20 bytes spill loads
+ptxas info    : Function properties for _Z8SafeFreePvPKc
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZN25omptarget_nvptx_TaskDescr8ThreadIdEv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for __kmpc_data_sharing_init_stack_spmd
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZN21omptarget_nvptx_QueueI36omptarget_nvptx_ThreadPrivateContextLj16EE10PopElementEj
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZN25omptarget_nvptx_TaskDescr22InitLevelZeroTaskDescrEv
+    16 bytes stack frame, 12 bytes spill stores, 12 bytes spill loads
+ptxas info    : Function properties for _Z14GetOmpThreadIdibb
+    8 bytes stack frame, 8 bytes spill stores, 8 bytes spill loads
+ptxas info    : Function properties for _Z22setExecutionParameters13ExecutionMode11RuntimeMode
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZL24IsWarpMasterActiveThreadv
+    8 bytes stack frame, 8 bytes spill stores, 8 bytes spill loads
+ptxas info    : Function properties for _ZN21omptarget_nvptx_QueueI36omptarget_nvptx_ThreadPrivateContextLj16EE7EnqueueEPS0_
+    24 bytes stack frame, 24 bytes spill stores, 24 bytes spill loads
+ptxas info    : Function properties for _ZN36omptarget_nvptx_ThreadPrivateContext15Level1TaskDescrEi
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZL20getActiveThreadsMaskv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _Z17GetMasterThreadIDv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for __omp_outlined__
+    112 bytes stack frame, 16 bytes spill stores, 16 bytes spill loads
+ptxas info    : Function properties for _ZN21omptarget_nvptx_QueueI36omptarget_nvptx_ThreadPrivateContextLj16EE2IDEj
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _Z24GetNumberOfProcsInDevicev
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _Z19GetNumberOfOmpTeamsv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _Z19getMyWorkDescriptorv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _Z10isSPMDModev
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for __kmpc_global_thread_num
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZN36omptarget_nvptx_ThreadPrivateContext20SetTopLevelTaskDescrEiP25omptarget_nvptx_TaskDescr
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _Z22isRuntimeUninitializedv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZN25omptarget_nvptx_TaskDescr13ThreadsInTeamEv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZN36omptarget_nvptx_ThreadPrivateContext11TeamContextEv
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for _ZL10atomicExchPjj
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ "/usr/local/cuda-8.0/bin/nvlink" -o /tmp/test-a8b8e8.out -v -arch sm_37 -L/localhd/gbercea/patch-compiler/obj-release/lib -L/usr/local/cuda-8.0/lib64 -L/usr/local/cuda-8.0/nvvm/libdevice -L/localhd/gbercea/patch-compiler/obj-release/lib -lomptarget-nvptx /tmp/test-53b087.cubin
+nvlink info    : 100538655 bytes gmem
+nvlink info    : Function properties for '__omp_offloading_811_27c6c0c__Z6forallIZ4mainE3$_0EviiT__l8':
+nvlink info    : used 41 registers, 288 stack, 1084 bytes smem, 344 bytes cmem[0], 0 bytes lmem
+ "/localhd/gbercea/patch-compiler/obj-release/bin/clang-6.0" -cc1 -triple powerpc64le-ibm-linux-gnu -emit-obj -mrelax-all -disable-free -main-file-name test.cpp -mrelocation-model pic -pic-level 2 -mthread-model posix -mdisable-fp-elim -fmath-errno -masm-verbose -mconstructor-aliases -fuse-init-array -target-cpu pwr8 -mfloat-abi hard -target-abi elfv2 -dwarf-column-info -debugger-tuning=gdb -v -resource-dir /localhd/gbercea/patch-compiler/obj-release/lib/clang/7.0.0 -std=c++0x -fdebug-compilation-dir /localhd/gbercea/patch-compiler/src/projects/openmp/libomptarget/omptests/t-raja/results -ferror-limit 19 -fmessage-length 0 -fopenmp -fno-signed-char -fobjc-runtime=gcc -fdiagnostics-show-option -o /tmp/test-ae84ba.o -x ir /tmp/test-e51d33.bc -faddrsig
+clang -cc1 version 7.0.0 based upon LLVM 7.0.0svn default target powerpc64le-unknown-linux-gnu
+ "/usr/bin/ld" -z relro --hash-style=gnu --eh-frame-hdr -m elf64lppc -dynamic-linker /lib64/ld64.so.2 -o /localhd/gbercea/patch-compiler/src/projects/openmp/libomptarget/omptests/t-raja/results/a.out /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../powerpc64le-linux-gnu/crt1.o /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../powerpc64le-linux-gnu/crti.o /usr/lib/gcc/powerpc64le-linux-gnu/4.8/crtbegin.o -L/localhd/gbercea/patch-compiler/obj-release/lib -L/localhd/gbercea/patch-compiler/obj-release/lib -L/usr/lib/gcc/powerpc64le-linux-gnu/4.8 -L/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../powerpc64le-linux-gnu -L/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../../lib64 -L/lib/powerpc64le-linux-gnu -L/lib/../lib64 -L/usr/lib/powerpc64le-linux-gnu -L/usr/lib/../lib64 -L/usr/lib/powerpc64le-linux-gnu/../../lib64 -L/usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../.. -L/localhd/gbercea/patch-compiler/obj-release/bin/../lib -L/lib -L/usr/lib /tmp/test-ae84ba.o -L/localhd/gbercea/patch-compiler/obj-release/lib -L/usr/local/cuda-8.0/lib64 -L/usr/local/cuda-8.0/nvvm/libdevice -lstdc++ -lm -lomp -lomptarget -lgcc_s -lgcc -lpthread -latomic -lc -lgcc_s -lgcc /usr/lib/gcc/powerpc64le-linux-gnu/4.8/crtend.o /usr/lib/gcc/powerpc64le-linux-gnu/4.8/../../../powerpc64le-linux-gnu/crtn.o -T /tmp/a-0af172.lk
