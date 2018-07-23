@@ -1,2 +1,0 @@
-OMP: Warning #96: Cannot form a team with 343 threads, using 160 instead.
-OMP: Hint Consider unsetting KMP_DEVICE_THREAD_LIMIT (KMP_ALL_THREADS), KMP_TEAMS_THREAD_LIMIT, and OMP_THREAD_LIMIT (if any are set).
