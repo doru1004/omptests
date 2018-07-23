@@ -15,8 +15,8 @@ int main() {
       a = 0 + x;
       x = 2;
     }
-#pragma omp section 
-    { 
+#pragma omp section
+    {
       b = 1 + x;
       x = 3;
     }
