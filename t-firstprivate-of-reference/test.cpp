@@ -4,7 +4,7 @@ int main() {
 
   int a = 0, b = 0, x = 1;
   bool onDevice = true;
-  int max_threads = 10;
+  int max_threads = 32;
 
 #pragma omp target map(tofrom : a, b, x) map(to : max_threads) if (onDevice)
 #pragma omp parallel num_threads(max_threads)
