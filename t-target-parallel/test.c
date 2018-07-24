@@ -114,10 +114,10 @@ int main(void) {
   // Test: if clause parallel execution of parallel region on device with num_threads clause
   //
   ZERO(A);
-  TESTD("omp target parallel num_threads(2) if(parallel: A[0] == 0)", {
+  TESTD("omp target parallel num_threads(1) if(parallel: A[0] == 0)", {
       int tid = omp_get_thread_num();
       A[tid] = omp_get_num_threads();
-  }, VERIFY(0, 1, A[0], 2));
+  }, VERIFY(0, 1, A[0], 1));
 
   //
   // Test: proc_bind clause
@@ -144,7 +144,7 @@ int main(void) {
   //
   // Test: num_threads on parallel.
   //
-  for (int t = 1; t <= max_threads; t++) {
+  for (int t = 1; t <= max_threads; t += (t < 32) ? 31 : 32) {
     ZERO(A);
     int threads[1]; threads[0] = t;
     TESTD("omp target parallel num_threads(threads[0])", {

@@ -132,7 +132,7 @@ int main(void) {
     for (i = 0; i < N; i++) {
       B[i] = -1;
     }
-    _Pragma("omp parallel num_threads(13)")
+    _Pragma("omp parallel num_threads(32)")
     {
       _Pragma("omp sections firstprivate(B) lastprivate(B) private(i)")
       {

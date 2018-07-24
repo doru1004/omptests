@@ -1377,7 +1377,7 @@ int main(void) {
     VERIFY(0, 1, S[0], (N/2*(N+1))))
   }
   DUMP_SUCCESS9()
-
+ 
   //
   // Test: Ensure coalesced scheduling on GPU.
   //
@@ -1385,63 +1385,63 @@ int main(void) {
     #undef TARGET_PARALLEL_FOR_CLAUSES
     #define TARGET_PARALLEL_FOR_CLAUSES
     #include "tpf_defines.h"
-    int threads[1]; threads[0] = 33;
+    int threads[1]; threads[0] = 32;
     TARGET_PARALLEL_FOR1(
       S[0] = 0; \
-      for (int i = 0; i < 99; i++) { \
+      for (int i = 0; i < 96; i++) { \
         A[i] = 0; \
       } \
     ,
-      for (int i = 0; i < 99; i++) { \
+      for (int i = 0; i < 96; i++) { \
         A[i] += i - omp_get_thread_num(); \
       }
     ,
     {
       double tmp = 0;
-      for (int i = 0; i < 99; i++) {
+      for (int i = 0; i < 96; i++) {
         tmp += A[i];
       }
       S[0] = tmp;
     },
-    VERIFY(0, 1, S[0], (33*33 + 66*33) ))
+    VERIFY(0, 1, S[0], (32*32 + 64*32) ))
 
     TARGET_PARALLEL_FOR2(
       S[0] = 0; \
-      for (int i = 0; i < 99; i++) { \
+      for (int i = 0; i < 96; i++) { \
         A[i] = 0; \
       } \
     ,
-      for (int i = 0; i < 99; i++) { \
+      for (int i = 0; i < 96; i++) { \
         A[i] += i - omp_get_thread_num(); \
       }
     ,
     {
       double tmp = 0;
-      for (int i = 0; i < 99; i++) {
+      for (int i = 0; i < 96; i++) {
         tmp += A[i];
       }
       S[0] = tmp;
     },
-    VERIFY(0, 1, S[0], (33*33 + 66*33) ))
+    VERIFY(0, 1, S[0], (32*32 + 64*32) ))
 
     TARGET_PARALLEL_FOR7(
       S[0] = 0; \
-      for (int i = 0; i < 99; i++) { \
+      for (int i = 0; i < 96; i++) { \
         A[i] = 0; \
       } \
     ,
-      for (int i = 0; i < 99; i++) { \
+      for (int i = 0; i < 96; i++) { \
         A[i] += i - omp_get_thread_num(); \
       }
     ,
     {
       double tmp = 0;
-      for (int i = 0; i < 99; i++) {
+      for (int i = 0; i < 96; i++) {
         tmp += A[i];
       }
       S[0] = tmp;
     },
-    VERIFY(0, 1, S[0], (33*33 + 66*33) ))
+    VERIFY(0, 1, S[0], (32*32 + 64*32) ))
   } else {
     DUMP_SUCCESS(3);
   }

@@ -6,7 +6,7 @@ void kernel(int &a) {
 
   printf(" -> a = %d\n", a);
 
-#pragma omp parallel num_threads(4)
+#pragma omp parallel num_threads(32)
   printf(" --> a = %d\n", a);
 }
 #pragma omp end declare target

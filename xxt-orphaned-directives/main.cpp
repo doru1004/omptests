@@ -133,7 +133,7 @@ int main() {
       }
     }
   } // loop 'n'
-  printf("Succeeded\n");
+  printf("Succeeded 1\n");
 
 
   for (int n = 32 ; n < MAX_N ; n+=5000) {
@@ -171,7 +171,7 @@ int main() {
       }
     }
   } // loop 'n'
-  printf("Succeeded\n");
+  printf("Succeeded 2\n");
 
 #pragma omp target exit data map(release:a[:MAX_N],b[:MAX_N],c[:MAX_N])
 
@@ -197,7 +197,7 @@ int main() {
   EXPECTED[3] = 7532; EXPECTED[4] = 10468; EXPECTED[5] = 12999;
   EXPECTED[6] = 15345;
   unsigned e = 0;
-  for (int t = 2; t <= max_threads; t+=39) {
+  for (int t = 1; t <= max_threads; t+= (t<32) ? 31 : 32) {
     long long OUT = 0;
     int num_threads = t;
     int num_tests = 0;

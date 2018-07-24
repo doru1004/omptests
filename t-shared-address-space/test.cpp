@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
     static __attribute__((address_space(3))) int A;
     A = 123;
     
-    #pragma omp parallel num_threads(2)
+    #pragma omp parallel num_threads(32)
     {
       printf("%d\n",A);
     }
