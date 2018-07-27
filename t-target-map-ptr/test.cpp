@@ -59,7 +59,7 @@ int main(void){
   // Test: Execute on device (full extent)
   //
   INIT();
-  #pragma omp target device(1) map(from: pA[0:N]) map(to: pC[0:N]) map(pD[0:N])
+  #pragma omp target device(2) map(from: pA[0:N]) map(to: pC[0:N]) map(pD[0:N])
   {
     #pragma omp parallel for schedule(static,1)
     for (int i = 0; i < 992; i++)
@@ -81,10 +81,10 @@ int main(void){
   //
   INIT();
   #pragma omp target data map(from: pA[0:N]) map(to: pC[0:N]) map(pD[0:N]) \
-                          device(1)
+                          device(2)
   {
     // explicit implicit zero ptr
-    #pragma omp target device(1) map(from: pA[0:0]) map(to: pC[0:0]) map(pD[:0])
+    #pragma omp target device(2) map(from: pA[0:0]) map(to: pC[0:0]) map(pD[:0])
     {
       #pragma omp parallel for schedule(static,1) 
       for (int i = 0; i < 992; i++)
@@ -110,10 +110,10 @@ int main(void){
   int isNull_b = 2; // b is not mapped at all; 
   int isNull_e = 2; // e is partially mapped, but not the part starting at zero offset
   #pragma omp target data map(from: pA[0:N]) map(to: pC[0:N]) map(pD[0:N], pE[10:10]) \
-                          device(0)
+                          device(2)
   {
     // explicit implicit zero ptr
-    #pragma omp target device(0) map(from: pA[0:0]) map(to: pC[0:0]) \
+    #pragma omp target device(2) map(from: pA[0:0]) map(to: pC[0:0]) \
       map(pD[:0], pB[0:0], pE[0:0], isNull_b, isNull_e)
     {
       isNull_b = (pB == NULL) ? 1 : 0;
@@ -149,9 +149,9 @@ int main(void){
   //
   INIT();
   #pragma omp target data map(from: pA[0:N]) map(to: pC[0:N]) map(pD[0:N]) \
-                          device(1)
+                          device(2)
   {
-    #pragma omp target device(1) // implicit zero ptr
+    #pragma omp target device(2) // implicit zero ptr
     {
       #pragma omp parallel for schedule(static,1) 
       for (int i = 0; i < 992; i++)
@@ -173,8 +173,8 @@ int main(void){
   // Test: Execute on device (full extent)
   //
   INIT();
-  #pragma omp target data device(1) map(s1)
-  #pragma omp target device(1) map(from: s1.pA[0:N]) map(to: s1.pC[0:N]) \
+  #pragma omp target data device(2) map(s1)
+  #pragma omp target device(2) map(from: s1.pA[0:N]) map(to: s1.pC[0:N]) \
                                map(s1.pD[0:N])
   {
     #pragma omp parallel for schedule(static,1)
@@ -199,7 +199,7 @@ int main(void){
   pC = pC - 200;
   pD = pD - 300;
   INIT();
-  #pragma omp target device(1) map(from: pA[100:N]) map(to: pC[200:N]) \
+  #pragma omp target device(2) map(from: pA[100:N]) map(to: pC[200:N]) \
                                map(pD[300:N])
   {
     #pragma omp parallel for schedule(static,1)
@@ -229,7 +229,7 @@ int main(void){
   s1.pC = s1.pC - 200;
   s1.pD = s1.pD - 300;
   INIT();
-  #pragma omp target device(1) map(s1) map(from: s1.pA[100:N]) \
+  #pragma omp target device(2) map(s1) map(from: s1.pA[100:N]) \
                                map(to: s1.pC[200:N]) map(s1.pD[300:N])
   {
     #pragma omp parallel for schedule(static,1)
@@ -251,7 +251,7 @@ int main(void){
   // Test: Execute on device with first-private arrays
   //
   INIT();
-  #pragma omp target device(1) map(from: A[0:N]) firstprivate(C, D)
+  #pragma omp target device(2) map(from: A[0:N]) firstprivate(C, D)
   {
     #pragma omp parallel for schedule(static,1)
     for (int i = 0; i < 992; i++)
@@ -272,7 +272,7 @@ int main(void){
   // Test: Execute on device with first-private arrays with ranges
   //
   INIT();
-  #pragma omp target device(1) map(from: A[0:N]) firstprivate(C[0:N], D[0:N])
+  #pragma omp target device(2) map(from: A[0:N]) firstprivate(C[0:N], D[0:N])
   {
     #pragma omp parallel for schedule(static,1)
     for (int i = 0; i < 992; i++)
@@ -293,7 +293,7 @@ int main(void){
   // Test: Execute on device with first-private arrays referenced via pointers
   //
   INIT();
-  #pragma omp target device(1) map(from: pA[0:N]) firstprivate(pC[0:N], pD[0:N])
+  #pragma omp target device(2) map(from: pA[0:N]) firstprivate(pC[0:N], pD[0:N])
   {
     #pragma omp parallel for schedule(static,1)
     for (int i = 0; i < 992; i++)
@@ -315,13 +315,13 @@ int main(void){
   //
   INIT();
 
-  #pragma omp target data device(1) map(from: pA[0:N]) map(to: pC[0:N]) \
+  #pragma omp target data device(2) map(from: pA[0:N]) map(to: pC[0:N]) \
                      use_device_ptr(pC)
   {
     // Populate device pC with the contents of host pD
     cudaMemcpy(pC, pD, N*sizeof(double), cudaMemcpyHostToDevice);
 
-    #pragma omp target device(1) is_device_ptr(pC)
+    #pragma omp target device(2) is_device_ptr(pC)
     {
       #pragma omp parallel for schedule(static,1)
       for (int i = 0; i < 992; i++)
@@ -354,7 +354,7 @@ int main(void){
 
   INIT();
   #pragma omp target map(from: rpA[0:N]) map(to: rpC[0:N]) map(rpD[0:N]) \
-                     device(1)
+                     device(2)
   {
     #pragma omp parallel for schedule(static,1)
     for (int i = 0; i < 992; i++)
