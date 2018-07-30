@@ -133,7 +133,7 @@ int main() {
       }
     }
   } // loop 'n'
-  printf("Succeeded 1\n");
+  printf("Succeeded\n");
 
 
   for (int n = 32 ; n < MAX_N ; n+=5000) {
@@ -171,7 +171,7 @@ int main() {
       }
     }
   } // loop 'n'
-  printf("Succeeded 2\n");
+  printf("Succeeded\n");
 
 #pragma omp target exit data map(release:a[:MAX_N],b[:MAX_N],c[:MAX_N])
 
