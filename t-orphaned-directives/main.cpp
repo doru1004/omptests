@@ -192,10 +192,20 @@ int main() {
 
   double RESULT[256];
   int VALID[256];
-  long long EXPECTED[7];
-  EXPECTED[0] = 34; EXPECTED[1] = 2311; EXPECTED[2] = 4795;
-  EXPECTED[3] = 7532; EXPECTED[4] = 10468; EXPECTED[5] = 12999;
-  EXPECTED[6] = 15345;
+  long long EXPECTED[9];
+  //EXPECTED[0] = 34; EXPECTED[1] = 2311; EXPECTED[2] = 4795;
+  //EXPECTED[3] = 7532; EXPECTED[4] = 10468; EXPECTED[5] = 12999;
+  //EXPECTED[6] = 15345;
+  
+  EXPECTED[0] = 32;
+  EXPECTED[1] = 2156;
+  EXPECTED[2] = 4312;
+  EXPECTED[3] = 6468;
+  EXPECTED[4] = 8624;
+  EXPECTED[5] = 10780;
+  EXPECTED[6] = 12936;
+  EXPECTED[7] = 15092;
+  EXPECTED[8] = 17248;
   unsigned e = 0;
   for (int t = 1; t <= max_threads; t+= (t<32) ? 31 : 32) {
     long long OUT = 0;
@@ -226,7 +236,7 @@ int main() {
 
 
   e = 0;
-  for (int t = 2; t <= max_threads; t+=39) {
+  for (int t = 1; t <= max_threads; t+=(t<32) ? 31 : 32) {
     long long OUT = 0;
     int num_threads = t;
     int num_tests = 0;
