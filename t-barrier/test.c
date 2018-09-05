@@ -163,6 +163,7 @@ int main(void) {
     }, VERIFY(0, t-1, B[i], (trial+1)*1.0));
   }
   DUMP_SUCCESS(gpu_threads-max_threads);
+
 #if 0
   //
   // Test: Barrier in nested parallel in target region.

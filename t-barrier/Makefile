@@ -1,6 +1,6 @@
 include ../Makefile.defs
 
-EXTRAFLAGS := -O3
+EXTRAFLAGS := -O3 -Xclang -disable-llvm-optzns -fopenmp-version=45
 
 ################################################################################
 #
