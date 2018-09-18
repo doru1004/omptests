@@ -6,8 +6,10 @@
 #include <stdio.h>
 #include <string.h>
 // If one of the libomptarget plugins has been loaded, it means we are running
-// with libomptarget. libomptarget.so is also used by LOMP, so we need to check
+// w/ith libomptarget. libomptarget.so is also used by LOMP, so we need to check
 // for libomptarget.rtl.*.
+
+/*
 static int isLibomptarget(struct dl_phdr_info *info, size_t size,
     void *data) {
   if (strstr(info->dlpi_name, "libomptarget.rtl") != NULL) {
@@ -16,6 +18,7 @@ static int isLibomptarget(struct dl_phdr_info *info, size_t size,
   }
   return 0;
 }
+*/
 
 #define TEST_NESTED     1
 #define TEST_CONCURRENT 1
@@ -118,11 +121,11 @@ int main() {
 #if TEST_CONCURRENT
   // This test cannot run correctly with libomptarget because the library does
   // not support proper async. Fake the output in this case.
-  int libomptargetInUse = 0;
-  dl_iterate_phdr(isLibomptarget, &libomptargetInUse);
-  if (libomptargetInUse) {
-    printf("  test with concurrent maps completed successfully\n");
-  } else {
+  //int libomptargetInUse = 0;
+  //dl_iterate_phdr(isLibomptarget, &libomptargetInUse);
+  //if (libomptargetInUse) {
+  //  printf("  test with concurrent maps completed successfully\n");
+  //} else {
     // Run actual test
     for (i=0; i<N; i++) a[i] = b[i] = i;
 
@@ -162,7 +165,7 @@ int main() {
       printf("  test with concurrent maps completed with %d error(s)\n", error);
       totError++;
     }
-  }
+  //}
 #endif
 
 #if TEST_PARALLEL1
