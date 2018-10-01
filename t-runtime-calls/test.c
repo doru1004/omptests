@@ -78,7 +78,7 @@ int main(void) {
   TEST({
     A[0] = omp_in_parallel();  // 0
    // Serialized parallel
-  _Pragma("omp parallel num_threads(19) if (A[0] == 1)")
+  _Pragma("omp parallel num_threads(19) if (A[0] == 0)")
     {
       A[0] += omp_in_parallel();  // 0
     }
@@ -107,7 +107,7 @@ int main(void) {
       }
     }
     A[0] += omp_get_dynamic();  // 1
-  }, VERIFY(0, 1, A[i], 3));
+  }, VERIFY(0, 1, A[i], 0));
 
   //
   // Test: omp_get_cancellation()
@@ -118,7 +118,7 @@ int main(void) {
     A[0] = omp_get_cancellation();  // 0
   _Pragma("omp parallel num_threads(19)")
     {
-      if (omp_get_thread_num() == 18) {
+      if (omp_get_thread_num() == 0) {
         A[0] += omp_get_cancellation();  // 0
       }
     }
