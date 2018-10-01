@@ -373,7 +373,7 @@ int main(void) {
 #pragma omp teams num_teams(10)
 #pragma omp distribute parallel for simd lastprivate(lastpriv)
   for(int i = 0 ; i < omp_get_num_teams() ; i++)
-    lastpriv = omp_get_team_num();
+    lastpriv = i;
 
   if(lastpriv != 9) {
     printf("lastpriv value is %d and should have been %d\n", lastpriv, 9);
