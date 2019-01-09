@@ -1,6 +1,6 @@
 include ../Makefile.defs
 
-EXTRAFLAGS := -O0 -fno-exceptions
+EXTRAFLAGS := -O3 -fno-exceptions
 
 ################################################################################
 #
