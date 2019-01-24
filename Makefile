@@ -23,7 +23,7 @@ export LLVMBIN
 export OMPTESTS_CUDA_COMPUTE_CAPABILITY
 
 #
-# Look for the testcase folders 
+# Look for the testcase folders
 #
 
 ifeq ($(TEST_FOLDERS),)
@@ -103,60 +103,3 @@ bld_all_dynamic: $(TEST_FOLDERS_BLD_DYNAMIC)
 
 %_dyn_bld:
 	$(MAKE) -C $(@:_dyn_bld=) dynamic
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
