@@ -359,12 +359,15 @@ int main(void) {
     int residual;
     #pragma omp target map(tofrom: nthreads)
     #pragma omp teams num_teams(1) thread_limit(33)
-    #pragma omp parallel num_threads(33)
-    for (int i = 0; i < 99; i++) {
-      if (i == 0)
-        nthreads = omp_get_num_threads();
+    {
+      int s = omp_get_team_num();
+      #pragma omp parallel num_threads(33)
+      for (int i = 0; i < 99; i++) {
+        if (i == 0) {
+          nthreads = omp_get_num_threads() + s - omp_get_team_num();
+        }
+      }
     }
-
     residual = 99 - nthreads * (99 / nthreads);
     
     TESTD("omp target teams num_teams(1) thread_limit(33)", {
