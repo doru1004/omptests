@@ -254,8 +254,9 @@ int main(void){
   #pragma omp target device(2) map(from: A[0:N]) firstprivate(C, D)
   {
     #pragma omp parallel for schedule(static,1)
-    for (int i = 0; i < 992; i++)
+    for (int i = 0; i < 992; i++) {
       A[i] = C[i] + D[i] + 1 /*omp_is_initial_device()*/;
+    }
   }
   // CHECK: Succeeded
   fail = 0;

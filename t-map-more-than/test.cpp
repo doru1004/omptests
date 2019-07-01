@@ -2,7 +2,6 @@
 #include <omp.h>
 #include <stdint.h>
 
-
 /*
 export "LD_LIBRARY_PATH=/gsa/yktgsa/home/e/i/eichen/new-tlomp/lomp/source/lib64:/usr/local/cuda/lib64"
 export LIBRARY_PATH="/home/eichen/eichen/lnew/obj/lib"

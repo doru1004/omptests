@@ -67,7 +67,7 @@ void a() {
   fAA2();
   fAA3<100>();
   fAA4<200>();
-  
+
   #pragma omp target
   {
     printf("A --> AB1 %d\n", AB1++);
