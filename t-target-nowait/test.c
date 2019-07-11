@@ -117,7 +117,6 @@ int main() {
   }
 #endif
 
-
 #if TEST_CONCURRENT
   // This test cannot run correctly with libomptarget because the library does
   // not support proper async. Fake the output in this case.
@@ -129,29 +128,33 @@ int main() {
     // Run actual test
     for (i=0; i<N; i++) a[i] = b[i] = i;
 
-    #pragma omp target nowait map(to:b) map(from: a)
+    #pragma omp target enter data map(to:a)
+
+    #pragma omp target nowait map(to:b)
     {
       int j;
       for(j=0; j<N/4; j++) a[j] = b[j]+1;
     }
 
-    #pragma omp target nowait map(to:b) map(from: a)
+    #pragma omp target nowait map(to:b)
     {
       int j;
       for(j=N/4; j<N/2; j++) a[j] = b[j]+1;
     }
 
-    #pragma omp target nowait map(to:b) map(from: a)
+    #pragma omp target nowait map(to:b)
     {
       int j;
       for(j=N/2; j<3*(N/4); j++) a[j] = b[j]+1;
     }
 
-    #pragma omp target nowait map(to:b) map(from: a)
+    #pragma omp target nowait map(to:b)
     {
       int j;
       for(j=3*(N/4); j<N; j++) a[j] = b[j]+1;
     }
+
+    #pragma omp target exit data map(from: a)
 
     #pragma omp taskwait
 
