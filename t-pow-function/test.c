@@ -14,9 +14,9 @@ int main(void) {
 
   #pragma omp target map(A,B)
   {
-    A = sqrt(pow(A, B));
+    A = sqrt(pow(A, B)) + pow(A, 4);
   }
 
-  printf("%lf\n",A);
+  printf("%lf\n",A - pow(2, 4));
   return 0;
 }

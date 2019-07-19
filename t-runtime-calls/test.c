@@ -78,12 +78,12 @@ int main(void) {
   TEST({
     A[0] = omp_in_parallel();  // 0
    // Serialized parallel
-  _Pragma("omp parallel num_threads(19) if (A[0] == 0)")
+  _Pragma("omp parallel num_threads(32) if (A[0] == 0)")
     {
       A[0] += omp_in_parallel();  // 0
     }
     // Parallel execution
-  _Pragma("omp parallel num_threads(19) if (A[0] == 0)")
+  _Pragma("omp parallel num_threads(32) if (A[0] == 0)")
     {
       if (omp_get_thread_num() == 0) {
         A[0] += omp_in_parallel();  // 1
