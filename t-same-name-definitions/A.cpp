@@ -9,7 +9,15 @@ void fAB1() {
  Hello("fAB1");
 }
 
+extern int bbb;
+#pragma omp declare target link(bbb)
+
+int bbb = 0;
+#pragma omp declare target link(bbb)
+
 #pragma omp declare target
+
+//int bbb = 0;
 
 int AB1 = 1;
 ABTy<3> AB3;
@@ -23,6 +31,15 @@ static int AB2 = 2;
 static ABTy<4> AB4;
 
 #pragma omp end declare target
+
+extern int bbb;
+#pragma omp declare target link(bbb)
+
+int ABB = 1;
+#pragma omp declare target link(ABB)
+
+static int ABBB = 1;
+#pragma omp declare target link(ABBB)
 
 static void fAB2() {
  #pragma omp target
@@ -70,6 +87,10 @@ void a() {
 
   #pragma omp target
   {
+    bbb++;
+    printf("A --> bbb = %d\n", bbb);
+    printf("A --> ABB = %d\n", ABB);
+    printf("A --> ABBB = %d\n", ABBB);
     printf("A --> AB1 %d\n", AB1++);
     printf("A --> AB2 %d\n", AB2++);
     printf("A --> AB3.Val %d\n", AB3.Val++);

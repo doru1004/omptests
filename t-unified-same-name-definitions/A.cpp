@@ -76,6 +76,9 @@ void a() {
   #pragma omp target
   {
     printf("A --> AB1 %d\n", AB1++);
+    //printf("DEVICE: A --> AB1 %d   %p\n", AB1, &AB1);
+    //printf("DEVICE: A --> AB2      %p\n", &AB2);
+
     printf("A --> AB2 %d\n", AB2++);
     printf("A --> AB3.Val %d\n", AB3.Val++);
     printf("A --> AB4.Val %d\n", AB4.Val++);

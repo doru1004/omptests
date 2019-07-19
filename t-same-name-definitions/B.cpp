@@ -16,6 +16,12 @@ static ABTy<4> AB4;
 
 #pragma omp end declare target
 
+extern int ABB;
+#pragma omp declare target link(ABB)
+
+static int ABBB = 2;
+#pragma omp declare target link(ABBB)
+
 static void fAB2() {
  #pragma omp target
  Hello("fAB2");
@@ -62,6 +68,9 @@ void b() {
   
   #pragma omp target
   {
+    ABB++;
+    printf("ABB = %d\n", ABB);
+    printf("B --> ABBB = %d\n", ABBB);
     printf("B --> AB1 %d\n", AB1++);
     printf("B --> AB2 %d\n", AB2++);
     printf("B --> AB3.Val %d\n", AB3.Val++);

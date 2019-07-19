@@ -6,6 +6,9 @@ Hello from fAA1(v0)
 Hello from fAA2(v0)
 Hello from fAA3(v100)
 Hello from fAA4(v200)
+A --> bbb = 1
+A --> ABB = 1
+A --> ABBB = 1
 A --> AB1 1
 A --> AB2 2
 A --> AB3.Val 3
@@ -22,6 +25,8 @@ Hello from fAA1b(v0)
 Hello from fAA2b(v0)
 Hello from fAA3b(v100)
 Hello from fAA4b(v200)
+ABB = 2
+B --> ABBB = 2
 B --> AB1 2
 B --> AB2 2
 B --> AB3.Val 4
