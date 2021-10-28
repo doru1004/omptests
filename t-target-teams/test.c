@@ -19,7 +19,7 @@ int main(void) {
   check_offloading();
 
   double A[N], B[N], C[N], D[N], E[N];
-  double * pA = malloc(N*sizeof(double));
+  double * pA = (double *) malloc(N*sizeof(double));
   int fail = 0;
 
   INIT();

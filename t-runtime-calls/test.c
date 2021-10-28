@@ -152,17 +152,17 @@ int main(void) {
     omp_sched_t t; int chunk_size;
     t = omp_sched_static; chunk_size = 10;
     omp_set_schedule(t, chunk_size);
-    t = 0; chunk_size = 0;
+    t = omp_sched_auto; chunk_size = 0;
     omp_get_schedule(&t, &chunk_size);
     A[0] = t + chunk_size;
     t = omp_sched_dynamic; chunk_size = 100;
     omp_set_schedule(t, chunk_size);
-    t = 0; chunk_size = 0;
+    t = omp_sched_auto; chunk_size = 0;
     omp_get_schedule(&t, &chunk_size);
     A[0] += t + chunk_size;
     t = omp_sched_guided; chunk_size = 1000;
     omp_set_schedule(t, chunk_size);
-    t = 0; chunk_size = 0;
+    t = omp_sched_auto; chunk_size = 0;
     omp_get_schedule(&t, &chunk_size);
     A[0] += t + chunk_size;
     t = omp_sched_static; chunk_size = 10;
@@ -173,22 +173,22 @@ int main(void) {
         omp_sched_t t; int chunk_size;
         t = omp_sched_static; chunk_size = 10;
         omp_set_schedule(t, chunk_size);
-        t = 0; chunk_size = 0;
+        t = omp_sched_auto; chunk_size = 0;
         omp_get_schedule(&t, &chunk_size);
         A[0] += t + chunk_size;
         t = omp_sched_dynamic; chunk_size = 100;
         omp_set_schedule(t, chunk_size);
-        t = 0; chunk_size = 0;
+        t = omp_sched_auto; chunk_size = 0;
         omp_get_schedule(&t, &chunk_size);
         A[0] += t + chunk_size;
         t = omp_sched_guided; chunk_size = 1000;
         omp_set_schedule(t, chunk_size);
-        t = 0; chunk_size = 0;
+        t = omp_sched_auto; chunk_size = 0;
         omp_get_schedule(&t, &chunk_size);
         A[0] += t + chunk_size;
       }
     }
-    t = 0; chunk_size = 0;
+    t = omp_sched_auto; chunk_size = 0;
     omp_get_schedule(&t, &chunk_size);  // should read 1, 10;
     A[0] += t + chunk_size;
   }, VERIFY(0, 1, A[i], result));

@@ -460,9 +460,9 @@ int main(void) {
   //
   // Test: 2 loops
   //
-  double * S = malloc(N*N*sizeof(double));
-  double * T = malloc(N*N*sizeof(double));
-  double * U = malloc(N*N*sizeof(double));
+  double * S = (double *) malloc(N*N*sizeof(double));
+  double * T = (double *) malloc(N*N*sizeof(double));
+  double * U = (double *) malloc(N*N*sizeof(double));
   for (int i = 0 ; i < N ; i++)
     for (int j = 0 ; j < N ; j++)
     {
@@ -492,8 +492,8 @@ int main(void) {
   // Test: 3 loops
   //
   int M = N/8;
-  double * V = malloc(M*M*M*sizeof(double));
-  double * Z = malloc(M*M*M*sizeof(double));
+  double * V = (double *) malloc(M*M*M*sizeof(double));
+  double * Z = (double *) malloc(M*M*M*sizeof(double));
   for (int i = 0 ; i < M ; i++)
     for (int j = 0 ; j < M ; j++)
       for (int k = 0 ; k < M ; k++)
