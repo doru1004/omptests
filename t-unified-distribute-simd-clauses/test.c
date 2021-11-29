@@ -84,11 +84,11 @@ int test_lastprivate(){
     aa[i] = a[i] = -1;
 
   // offload
-  #pragma omp target map(tofrom: a[0:100])
+  int n;
+  #pragma omp target map(tofrom: a[0:100]) private(n)
   {
     #pragma omp teams num_teams(1)
     {
-      int n;
       #pragma omp distribute simd lastprivate(n)
       for(int k=0; k<N; k++) {
         a[k] = k;
