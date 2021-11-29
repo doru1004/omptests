@@ -26,8 +26,11 @@ int main(void) {
   ZERO(A);
   TEST({
     // Master in the serial section has thread id 0.
-    int tid = omp_get_thread_num();
-    A[tid] += tid;
+  _Pragma("omp parallel master")
+    {
+      int tid = omp_get_thread_num();
+      A[tid] += tid;
+    }
     // Expecting to start 128 parallel threads.
   _Pragma("omp parallel num_threads(128)")
     {
@@ -311,8 +314,11 @@ int main(void) {
   ZERO(data.A);
   TEST({
     // Master in the serial section has thread id 0.
-    int tid = omp_get_thread_num();
-    data.A[tid] += tid + (int) data.city.name[1] + data.city.distance_to_nyc;
+  _Pragma("omp parallel master")
+    {
+      int tid = omp_get_thread_num();
+      data.A[tid] += tid + (int) data.city.name[1] + data.city.distance_to_nyc;
+    }
     // Expecting to start 128 parallel threads.
   _Pragma("omp parallel num_threads(128)")
     {

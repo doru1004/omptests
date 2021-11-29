@@ -35,6 +35,7 @@ int main(void) {
   //
   ZERO(A);
   TEST({
+  _Pragma("omp parallel if (0)")
     A[0] = omp_get_num_threads();  // 1
   _Pragma("omp parallel num_threads(128)")
     {
@@ -49,7 +50,8 @@ int main(void) {
   //
   ZERO(A);
   TEST({
-      A[0] = omp_get_max_threads();
+      _Pragma("omp parallel if(0)")
+        A[0] = omp_get_max_threads();
       _Pragma("omp parallel")
       {
 	  if (omp_get_thread_num() == 0) {
@@ -63,6 +65,7 @@ int main(void) {
   //
   ZERO(A);
   TEST({
+  _Pragma("omp parallel if(0)")
     A[0] = omp_get_num_procs();
   _Pragma("omp parallel")
     {
@@ -78,17 +81,23 @@ int main(void) {
   //
   ZERO(A);
   TEST({
-    A[0] = omp_in_parallel();  // 0
+  _Pragma("omp distribute dist_schedule(static,1)")
+    for (int i = 0; i < 1; ++i) {
+      _Pragma("atomic write")
+        A[0] = omp_in_parallel();  // 0
+    }
    // Serialized parallel
-  _Pragma("omp parallel num_threads(32) if (A[0] == 0)")
+  _Pragma("omp parallel num_threads(32) if (A[0] == 1)")
     {
-      A[0] += omp_in_parallel();  // 0
+      _Pragma("atomic update")
+        A[0] += omp_in_parallel();  // 0
     }
     // Parallel execution
   _Pragma("omp parallel num_threads(32) if (A[0] == 0)")
     {
       if (omp_get_thread_num() == 0) {
-        A[0] += omp_in_parallel();  // 1
+        _Pragma("atomic update")
+          A[0] += omp_in_parallel();  // 1
       }
     }
   }, VERIFY(0, 1, A[i], 1));
@@ -98,9 +107,13 @@ int main(void) {
   //
   ZERO(A);
   TEST({
-    A[0] = omp_get_dynamic();   // 0
-    omp_set_dynamic(1);
-    A[0] += omp_get_dynamic();  // 1
+  _Pragma("omp distribute dist_schedule(static,1)")
+  for (int i = 0; i < 1; ++i)
+    {
+      A[0] = omp_get_dynamic();   // 0
+      omp_set_dynamic(1);
+      A[0] += omp_get_dynamic();  // 1
+    }
   _Pragma("omp parallel num_threads(19)")
     {
       if (omp_get_thread_num() == 0) {
@@ -108,8 +121,10 @@ int main(void) {
         omp_set_dynamic(0);  // Only for this parallel region.
       }
     }
+  _Pragma("omp distribute dist_schedule(static,1)")
+  for (int i = 0; i < 1; ++i)
     A[0] += omp_get_dynamic();  // 1
-  }, VERIFY(0, 1, A[i], 0));
+  }, VERIFY(0, 1, A[i], 3));
 
   //
   // Test: omp_get_cancellation()
@@ -117,6 +132,7 @@ int main(void) {
   //
   ZERO(A);
   TEST({
+  _Pragma("omp parallel if(0)")
     A[0] = omp_get_cancellation();  // 0
   _Pragma("omp parallel num_threads(19)")
     {
@@ -131,9 +147,12 @@ int main(void) {
   //
   ZERO(A);
   TEST({
-    A[0] = omp_get_nested();   // 0
-    omp_set_nested(0);
-    A[0] += omp_get_nested();  // 0
+  _Pragma("omp parallel if(0)")
+    {
+      A[0] = omp_get_nested();   // 0
+      omp_set_nested(0);
+      A[0] += omp_get_nested();  // 0
+    }
   _Pragma("omp parallel num_threads(19)")
     {
       if (omp_get_thread_num() == 18) {
@@ -141,6 +160,7 @@ int main(void) {
         omp_set_nested(0);
       }
     }
+  _Pragma("omp parallel if(0)")
     A[0] += omp_get_nested();  // 0
   }, VERIFY(0, 1, A[i], 0));
 
@@ -152,23 +172,27 @@ int main(void) {
   result += 2 * (1110) + 10;
   TEST({
     omp_sched_t t; int chunk_size;
-    t = omp_sched_static; chunk_size = 10;
-    omp_set_schedule(t, chunk_size);
-    t = omp_sched_auto; chunk_size = 0;
-    omp_get_schedule(&t, &chunk_size);
-    A[0] = t + chunk_size;
-    t = omp_sched_dynamic; chunk_size = 100;
-    omp_set_schedule(t, chunk_size);
-    t = omp_sched_auto; chunk_size = 0;
-    omp_get_schedule(&t, &chunk_size);
-    A[0] += t + chunk_size;
-    t = omp_sched_guided; chunk_size = 1000;
-    omp_set_schedule(t, chunk_size);
-    t = omp_sched_auto; chunk_size = 0;
-    omp_get_schedule(&t, &chunk_size);
-    A[0] += t + chunk_size;
-    t = omp_sched_static; chunk_size = 10;
-    omp_set_schedule(t, chunk_size);
+  _Pragma("omp distribute dist_schedule(static,1)")
+    for (int i = 0; i < 1; ++i)
+      {
+        t = omp_sched_static; chunk_size = 10;
+        omp_set_schedule(t, chunk_size);
+        t = omp_sched_auto; chunk_size = 0;
+        omp_get_schedule(&t, &chunk_size);
+        A[0] = t + chunk_size;
+        t = omp_sched_dynamic; chunk_size = 100;
+        omp_set_schedule(t, chunk_size);
+        t = omp_sched_auto; chunk_size = 0;
+        omp_get_schedule(&t, &chunk_size);
+        A[0] += t + chunk_size;
+        t = omp_sched_guided; chunk_size = 1000;
+        omp_set_schedule(t, chunk_size);
+        t = omp_sched_auto; chunk_size = 0;
+        omp_get_schedule(&t, &chunk_size);
+        A[0] += t + chunk_size;
+        t = omp_sched_static; chunk_size = 10;
+        omp_set_schedule(t, chunk_size);
+      }
   _Pragma("omp parallel num_threads(19)")
     {
       if (omp_get_thread_num() == 0) {
@@ -191,7 +215,8 @@ int main(void) {
       }
     }
     t = omp_sched_auto; chunk_size = 0;
-    omp_get_schedule(&t, &chunk_size);  // should read 1, 10;
+    _Pragma("omp parallel if(0)")
+      omp_get_schedule(&t, &chunk_size);  // should read 1, 10;
     A[0] += t + chunk_size;
   }, VERIFY(0, 1, A[i], result));
 
@@ -200,7 +225,9 @@ int main(void) {
   //
   ZERO(A);
   TEST({
-    A[0] = omp_get_thread_limit();
+  _Pragma("omp distribute dist_schedule(static,1)")
+    for (int i = 0; i < 1; ++i)
+      A[0] = omp_get_thread_limit();
   _Pragma("omp parallel")
     {
       if (omp_get_thread_num() == 0) {
@@ -216,8 +243,11 @@ int main(void) {
   ZERO(A);
   TEST({
    // Our runtime ignores this.
-   omp_set_max_active_levels(1);
-    A[0] = omp_get_max_active_levels();  // 1
+  _Pragma("omp parallel if(0)")
+    {
+      omp_set_max_active_levels(1);
+      A[0] = omp_get_max_active_levels();  // 1
+    }
   _Pragma("omp parallel num_threads(19)")
     {
       if (omp_get_thread_num() == 0) {
@@ -231,7 +261,9 @@ int main(void) {
   //
   ZERO(A);
   TEST({
-    A[0] = omp_get_level();  // 0
+  _Pragma("omp distribute dist_schedule(static,1)")
+    for (int i = 0; i < 1; ++i)
+      A[0] = omp_get_level();  // 0
   _Pragma("omp parallel num_threads(19)")
     {
       if (omp_get_thread_num() == 0) {
@@ -245,7 +277,8 @@ int main(void) {
   //
   ZERO(A);
   TEST({
-      A[0] = omp_get_ancestor_thread_num(0);  // 0
+      _Pragma("omp parallel if(0)")
+        A[0] = omp_get_ancestor_thread_num(0);  // 0
       _Pragma("omp parallel num_threads(19)")
       {
 	if (omp_get_thread_num() == 0) {
@@ -259,6 +292,7 @@ int main(void) {
   //
   ZERO(A);
   TEST({
+  _Pragma("omp parallel if(0)")
     A[0] = omp_get_team_size(0) + omp_get_team_size(1);  // 1 + 1
   _Pragma("omp parallel num_threads(19)")
     {
@@ -272,6 +306,7 @@ int main(void) {
   //
   ZERO(A);
   TEST({
+  _Pragma("omp parallel if(0)")
     A[0] = omp_get_active_level();  // 0
   _Pragma("omp parallel num_threads(19)")
     {
@@ -289,6 +324,7 @@ int main(void) {
   //
   ZERO(A);
   TEST({
+      _Pragma("omp parallel if(0)")
       A[0] = omp_in_final();  // 1  always returns true.
       _Pragma("omp parallel num_threads(19)")
       {
@@ -303,6 +339,7 @@ int main(void) {
   //
   ZERO(A);
   TEST({
+  _Pragma("omp parallel if(0)")
     A[0] = omp_get_proc_bind();  // 1  always returns omp_proc_bind_true.
   _Pragma("omp parallel num_threads(19)")
     {
@@ -318,14 +355,17 @@ int main(void) {
   //
   ZERO(A);
   TEST({
-    (void) omp_get_num_places();
-    (void) omp_get_place_num_procs(0);
-    int *ids;
-    omp_get_place_proc_ids(0, ids);
-    (void) omp_get_place_num();
-    (void) omp_get_partition_num_places();
-    int *place_nums;
-    omp_get_partition_place_nums(place_nums);
+  _Pragma("omp parallel if(0)")
+    {
+      (void) omp_get_num_places();
+      (void) omp_get_place_num_procs(0);
+      int *ids;
+      omp_get_place_proc_ids(0, ids);
+      (void) omp_get_place_num();
+      (void) omp_get_partition_num_places();
+      int *place_nums;
+      omp_get_partition_place_nums(place_nums);
+    }
   }, VERIFY(0, 1, A[i], 0));
 #endif
 
@@ -334,9 +374,12 @@ int main(void) {
   //
   ZERO(A);
   TEST({
-    omp_set_default_device(0); // Not used on device.
+  _Pragma("omp parallel if(0)")
+    {
+      omp_set_default_device(0); // Not used on device.
 
-    A[0] = omp_get_default_device();  // 0  always returns 0.
+      A[0] = omp_get_default_device();  // 0  always returns 0.
+    }
   _Pragma("omp parallel num_threads(19)")
     {
       if (omp_get_thread_num() == 0) {
@@ -350,6 +393,7 @@ int main(void) {
   //
   ZERO(A);
   TEST({
+  _Pragma("omp parallel if(0)")
     A[0] = omp_get_num_devices();
   _Pragma("omp parallel num_threads(19)")
     {
@@ -382,6 +426,7 @@ int main(void) {
   ZERO(A);
   A[1] = omp_is_initial_device();
   TEST({
+  _Pragma("omp parallel if(0)")
     A[0] = omp_is_initial_device();  // 0
   _Pragma("omp parallel num_threads(19)")
     {
@@ -400,6 +445,7 @@ int main(void) {
   //
   ZERO(A);
   TEST({
+  _Pragma("omp parallel if(0)")
     A[0] = omp_get_initial_device();
   _Pragma("omp parallel num_threads(19)")
     {
@@ -417,6 +463,7 @@ int main(void) {
   //
   ZERO(A);
   TEST({
+  _Pragma("omp parallel if(0)")
     A[0] = omp_get_max_task_priority();
   _Pragma("omp parallel num_threads(19)")
     {
@@ -434,10 +481,14 @@ int main(void) {
   ZERO(A);
   TEST({
     double precision;
+  _Pragma("omp parallel if(0)")
     precision = omp_get_wtick();
     double start; double end;
-    start = omp_get_wtime();
-    end = omp_get_wtime();
+  _Pragma("omp parallel if(0)")
+    {
+      start = omp_get_wtime();
+      end = omp_get_wtime();
+    }
   }, VERIFY(0, 1, A[i], 0));
 
   return 0;
