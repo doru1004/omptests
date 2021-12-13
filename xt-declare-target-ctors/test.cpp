@@ -115,6 +115,7 @@ int main(void) {
 
   #pragma omp target device(0)
   #pragma omp teams num_teams(1) thread_limit(1)
+  #pragma omp parallel if(0)
   {
    printf("Main: %d %s\n",123, (omp_is_initial_device() && !OffloadDisabled) ? "Host" : "Device");
   }
