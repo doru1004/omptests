@@ -411,7 +411,7 @@ int main(void) {
   //
   printf("L\n");
 
-  int *b;
+  int *b = NULL;
 
   #undef PARALLEL_FOR_CLAUSES
   #define PARALLEL_FOR_CLAUSES aligned(b: 8*sizeof(int))
@@ -433,7 +433,7 @@ int main(void) {
     for(int i=0; i<N; i++)
       aa[i] += i * SUMS;
   },
-  VERIFY_ARRAY(0, N, aa, b));
+  VERIFY_ARRAY(0, N, aa, a));
 
   //
   // Test: lastprivate clause on omp parallel for.
