@@ -246,5 +246,5 @@ int main() {
 
   totError += error;
   if (totError==0) printf("success\n"); else printf("completed with some errors\n");
-  return 1;
+  return totError;
 }

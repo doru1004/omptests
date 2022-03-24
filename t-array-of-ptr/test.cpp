@@ -22,6 +22,7 @@ int main()
 {
   // init
   int i;
+  int error = 0;
   for(i=0; i<N; i++) A[i] = i;
   for(i=0; i<P; i++) p[i] = &A[i*C];
 
@@ -47,12 +48,11 @@ int main()
 
   #pragma omp target update from( A)
 
-  int error = 0;
   for(i=0; i<N; i++) {
     if (A[i] != i+1) printf("%4d: got %d, expected %d, error %d\n", i, A[i], i+1, ++error);
   }
   printf("completed TEST ARRAY with %d errors\n", error);
 #endif
 
-  return 1;
+  return error;
 }

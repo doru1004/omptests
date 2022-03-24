@@ -275,5 +275,5 @@ int main() {
   else
     printf ("Succeeded\n");
 
-  return 0;
+  return OUT + num_tests != 1;
 }

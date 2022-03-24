@@ -54,7 +54,6 @@ int main() {
     std::cout << "Succeeded" << std::endl;
   }
 
-  return c[2] + c[5];
-
+  return c[2] + c[5] != a[2]+b[2]-9 + a[5]+b[5]-9;
 }
 

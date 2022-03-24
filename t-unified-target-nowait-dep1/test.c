@@ -154,5 +154,5 @@ int main()
     if (errors>25) break;
   }
   printf("completed with %d errors\n", errors);
-  return 1;   
+  return errors;
 }

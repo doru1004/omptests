@@ -364,6 +364,6 @@ int main(void) {
   if(fail) printf("Failed\n");
   else printf("Succeeded\n");
 
-  return 0;
+  return fail;
 }
 

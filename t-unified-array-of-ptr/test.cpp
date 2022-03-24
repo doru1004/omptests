@@ -56,5 +56,5 @@ int main()
   printf("completed TEST ARRAY with %d errors\n", error);
 #endif
 
-  return 1;
+  return error;
 }

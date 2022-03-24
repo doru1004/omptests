@@ -90,5 +90,5 @@ int main()
 
   printf("test 2: a is %d\n", a);
 
-  return 1;
+  return 0;
 }

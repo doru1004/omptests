@@ -139,24 +139,32 @@ public:
 #endif
 
 int main() {
-
+  int errors = 0;
+  bool error_foo = false;
 #if TEST_A0
   A0 a0;
   printf("test a0: sum is %d\n", a0.Num());
+  if (a0.Num() != 6) ++errors;
 #endif
 
 #if TEST_A1
   A1 a1;
   printf("test a1: sum is %d\n", a1.Num());
+  if (a1.Num() != 6) ++errors;
 #endif
 
 #if TEST_A2
   A2 a2;
   printf("test a2: sum is %d\n", a2.Num());
+  if (a2.Num() != 6) ++errors;
 #endif
 
-  #pragma omp target
-  printf("test b: foo is %d\n", foo());
+  #pragma omp target map(from: error_foo)
+    {
+      printf("test b: foo is %d\n", foo());
+      error_foo = foo() != 6;
+    }
+  errors += error_foo;
 
 #if TEST_C
   #pragma omp target
@@ -164,8 +172,9 @@ int main() {
     C c;
     c.a = 1; c.b = 2; c.c = 3;
     printf("test c: c.foo is %d\n", c.foo());
+    if (c.Num() != 6) ++errors;
   }
 #endif
 
-  return 1;
+  return errors;
 }

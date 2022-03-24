@@ -24,5 +24,5 @@ int main()
   for(i=0; i<100; i++) if (a[i] != i+2) printf("%d, got %d, wanted %d, error %d\n", i, a[i], i+2, ++error);
   printf("finished with %d errors\n", error);
 
-  return 1;
+  return error;
 }

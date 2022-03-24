@@ -81,8 +81,9 @@ int main()
       printf("failed %d times\n", failures);
     else
       printf("Succeeded\n");
+    return failures;
   } else {// if !cpuExec
     DUMP_SUCCESS(2);
+    return 0;
   }
 }
-

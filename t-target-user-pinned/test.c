@@ -84,5 +84,5 @@ int main() {
     if (errors>20) break;
   }
   printf("got %d errors\n", errors);
-  return 1;
+  return errors;
 }

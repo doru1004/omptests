@@ -44,8 +44,5 @@ int main()
 
   printf("tests completed with %d errors\n", error);
 
-  
-
-  return 1;
-
+  return error;
 }
