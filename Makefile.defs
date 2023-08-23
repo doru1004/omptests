@@ -11,11 +11,53 @@ endif
 ifeq ($(GLOMPRTL),)
   $(error GLOMPRTL is not set)
 endif
-ifeq ($(CUDAVERSION),)
-  $(error CUDAVERSION is not set)
-endif
 ifeq ($(LLVMBIN),)
   $(error LLVMBIN is not set)
+endif
+ifeq ($(DEVICE_TYPE),)
+  DEVICE_TYPE := nvidia
+  $(warning Warning: DEVICE_TYPE was not set but defaulted to nvidia. Can use one of: amd, nvidia, ppc64, none)
+endif
+ifeq ($(DEVICE_TYPE),nvidia)
+  ifeq ($(CUDAVERSION),)
+    $(error DEVICE_TYPE is nvidia but CUDAVERSION is not set)
+  endif
+endif
+
+#
+# Give meaningful defaults to device variables.
+#
+
+ifeq ($(DEVICE_TYPE),amd)
+  ifeq ($(DEVICE_TARGET),)
+    DEVICE_TARGET := amdgcn-amd-amdhsa
+  endif
+  ifeq ($(DEVICE_ARCH),)
+    DEVICE_ARCH := gfx90a
+  endif
+else ifeq ($(DEVICE_TYPE),nvidia)
+  ifeq ($(DEVICE_TARGET),)
+    DEVICE_TARGET := nvptx64-nvidia-cuda
+  endif
+else ifeq ($(DEVICE_TYPE),ppc64)
+  ifeq ($(DEVICE_TARGET),)
+    DEVICE_TARGET := powerpc64-ibm-linux-gnu
+  endif
+endif
+
+#
+# Setup device specific options.
+#
+ifeq ($(DEVICE_TYPE),amd)
+  TARGET_OFFLOAD_OPTIONS := -fopenmp-targets=$(DEVICE_TARGET) -fopenmp -Xopenmp-target=$(DEVICE_TARGET) -march=$(DEVICE_ARCH)
+else ifeq ($(DEVICE_TYPE),nvidia)
+  TARGET_OFFLOAD_OPTIONS := -fopenmp=libomp -fopenmp-targets=$(DEVICE_TARGET)
+else ifeq ($(DEVICE_TYPE),ppc64)
+  TARGET_OFFLOAD_OPTIONS := -fopenmp=libomp -fopenmp-targets=$(DEVICE_TARGET)
+else ifeq ($(DEVICE_TYPE),none)
+  TARGET_OFFLOAD_OPTIONS := -fopenmp
+else
+  $(error Support for $(DEVICE_TYPE) device not implemented yet!)
 endif
 
 #
@@ -43,6 +85,9 @@ ifeq (HOST,1)
 endif
 
 ifeq ($(machine),ppc64)
+  ifneq ($(DEVICE_TYPE),ppc64)
+    $(error Machine type ppc64 requires device type ppc64. Found device type: $(DEVICE_TYPE))
+  endif
 	cmdc += $(CC)
   cmdc += -I/usr/local/include
   cmdc += -I/usr/lib/gcc/ppc64-redhat-linux/4.4.7/include
@@ -58,8 +103,8 @@ ifeq ($(machine),ppc64)
   
   cmdx += -std=c++11
   
-  cmdc += -L$(HOSTRTL) -L$(TARGETRTL) -target powerpc64-ibm-linux-gnu -mcpu=pwr7 -fopenmp=libomp -fopenmp-targets=powerpc64-ibm-linux-gnu
-  cmdx += -L$(HOSTRTL) -L$(TARGETRTL) -target powerpc64-ibm-linux-gnu -mcpu=pwr7 -fopenmp=libomp -fopenmp-targets=powerpc64-ibm-linux-gnu
+  cmdc += -L$(HOSTRTL) -L$(TARGETRTL) -target powerpc64-ibm-linux-gnu -mcpu=pwr7
+  cmdx += -L$(HOSTRTL) -L$(TARGETRTL) -target powerpc64-ibm-linux-gnu -mcpu=pwr7
 else ifeq ($(machine),ppc64le)
   cmdc += $(CC) -v 
   cmdc += -I$(HOSTRTL)
@@ -72,8 +117,8 @@ else ifeq ($(machine),ppc64le)
   cmdx += -I$(HOSTRTL)/../projects/openmp/runtime/src/ 
   cmdx += -std=c++11 -v
   
-  cmdc += -L$(HOSTRTL) -L$(TARGETRTL) -target powerpc64le-ibm-linux-gnu -mcpu=pwr8 -fopenmp=libomp -fopenmp-targets=nvptx64-nvidia-cuda
-  cmdx += -L$(HOSTRTL) -L$(TARGETRTL) -target powerpc64le-ibm-linux-gnu -mcpu=pwr8 -fopenmp=libomp -fopenmp-targets=nvptx64-nvidia-cuda
+  cmdc += -L$(HOSTRTL) -L$(TARGETRTL) -target powerpc64le-ibm-linux-gnu -mcpu=pwr8
+  cmdx += -L$(HOSTRTL) -L$(TARGETRTL) -target powerpc64le-ibm-linux-gnu -mcpu=pwr8
 else ifeq ($(machine),x86_64)
   cmdc += $(CC) -v
   cmdc += -I$(HOSTRTL)
@@ -86,16 +131,24 @@ else ifeq ($(machine),x86_64)
   cmdx += -I$(HOSTRTL)/../projects/openmp/runtime/src/
 
   cmdx += -std=c++11 -v
-  
-  cmdc += -L$(HOSTRTL) -L$(TARGETRTL) -target x86_64-pc-linux-gnu -fopenmp=libomp -fopenmp-targets=nvptx64-nvidia-cuda
-  cmdx += -L$(HOSTRTL) -L$(TARGETRTL) -target x86_64-pc-linux-gnu -fopenmp=libomp -fopenmp-targets=nvptx64-nvidia-cuda
+  cmdc += -L$(HOSTRTL) -L$(TARGETRTL)
+  cmdx += -L$(HOSTRTL) -L$(TARGETRTL)
+
+  ifeq ($(DEVICE_TYPE),nvidia)
+    cmdc += -target x86_64-pc-linux-gnu
+    cmdx += -target x86_64-pc-linux-gnu
+  endif
 
   extra_ld_lib_path := /home/compteam/opt/gcc/lib64
 else
   $(error Support for $(machine) not implemented yet!)
 endif
 
+cmdc += $(TARGET_OFFLOAD_OPTIONS)
+cmdx += $(TARGET_OFFLOAD_OPTIONS)
+
 main_folder := $(shell pwd)
+program := $(shell basename $(main_folder))
 results_folder := $(main_folder)/results
 error_log := $(results_folder)/error.log
 compile_log := $(results_folder)/compile.log
@@ -109,4 +162,3 @@ LD_LIBRARY_PATH := $(HOSTRTL):$(TARGETRTL):$(GLOMPRTL):$(CUDAVERSION)/lib64:$(re
 export LD_LIBRARY_PATH
 LIBRARY_PATH := $(GLOMPRTL):$(CUDAVERSION)/lib64:$(CUDAVERSION)/nvvm/libdevice
 export LIBRARY_PATH
-

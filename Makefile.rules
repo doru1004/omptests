@@ -83,7 +83,17 @@ run: prepare_folder_to_run
 	@export LIBRARY_PATH
 	@export LD_LIBRARY_PATH
 	@echo "$(cmd) -o $(results_folder)/a.out" >> $(compile_cmd)
+ifeq ($(DEVICE_TYPE),amd)
+	@echo " -----> AMD: OpenMP offload target triple: $(DEVICE_TARGET) device arch: $(DEVICE_ARCH)"
+ifeq ($(USE_XNACK),1)
+	@echo " -----> AMD: XNACK is enabled"
+else
+	@echo " -----> AMD: XNACK is disabled"
+endif
+	@HSA_XNACK=$(USE_XNACK) $(results_folder)/a.out 1>$(results_folder)/stdout 2>$(results_folder)/stderr ; true
+else
 	@$(results_folder)/a.out 1>$(results_folder)/stdout 2>$(results_folder)/stderr ; true
+endif
 	@diff $(results_folder)/stdout expected > /dev/null || \
 	(if [ $$? ] ; then \
 		echo "#### Error #### Result mismatch for $(main_folder)" | tee -a $(error_log); \
@@ -107,4 +117,3 @@ prepare_folder_to_run:
 	@echo "export LIBRARY_PATH=\"$(LIBRARY_PATH)\"" >  $(compile_cmd)
 	@echo "export LD_LIBRARY_PATH=\"$(LD_LIBRARY_PATH)\"" >>  $(compile_cmd)
 	@echo "cd $(main_folder)" >>  $(compile_cmd)
-  

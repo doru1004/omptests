@@ -16,6 +16,15 @@ ifeq ($(LLVMBIN),)
   $(error LLVMBIN is not set)
 endif
 
+#
+# If HSA_XNACK is empty then we use the inferred value for XNACK when
+# running the sto
+#
+HSA_XNACK_SPECIFIED := 1
+ifeq ($(HSA_XNACK),)
+  HSA_XNACK_SPECIFIED := 0
+endif
+
 export HOSTRTL
 export TARGETRTL
 export GLOMPRTL
@@ -25,6 +34,8 @@ export OMPTESTS_CUDA_COMPUTE_CAPABILITY
 #
 # Look for the testcase folders
 #
+
+UNIFIED_MEMORY_FOLDERS := $(wildcard t-unified*)
 
 ifeq ($(TEST_FOLDERS),)
 	machine := $(shell uname -m)
@@ -58,18 +69,44 @@ TEST_FOLDERS_RUN_DYNAMIC := $(addsuffix _dyn_run,$(TEST_FOLDERS))
 
 run_all_static: bld_all_static
 	@rm -rf .omptests_failed
+ifeq ($(DEVICE_TYPE),amd)
+	@for i in $(TEST_FOLDERS) ; do \
+	  USE_XNACK=0 ; \
+	  for j in $(UNIFIED_MEMORY_FOLDERS) ; do \
+	    if [ $$i = $$j ] ; then \
+	      USE_XNACK=1 ; \
+	    fi ; \
+	  done ; \
+	  if [ ${HSA_XNACK_SPECIFIED} = 1 ] ; then USE_XNACK=$$HSA_XNACK ; fi ; \
+	  $(MAKE) USE_XNACK=$${USE_XNACK} -C $$i run ; if [ $$? -ne 0 ] ; then touch .omptests_failed ; fi ; true; \
+	done
+else
 	@for i in $(TEST_FOLDERS) ; do \
 	  $(MAKE) -C $$i run ; if [ $$? -ne 0 ] ; then touch .omptests_failed ; fi ; true; \
 	done
+endif
 	@if [ -f '.omptests_failed' ] ; \
 		then echo " ---> Tests failed 8^( !!!" ; false ; fi
 	@(printenv OMP_TARGET_OFFLOAD | grep "DISABLED" >/dev/null && echo " ---> Test ran on the host") || echo  " ---> Test ran on the device"
 	@echo " ---> All tests completed successfully!!!"
 
 runonly_all_static:
+ifeq ($(DEVICE_TYPE),amd)
+	@for i in $(TEST_FOLDERS) ; do \
+	  USE_XNACK=0 ; \
+	  for j in $(UNIFIED_MEMORY_FOLDERS) ; do \
+	    if [ $$i = $$j ] ; then \
+	      USE_XNACK=1 ; \
+	    fi ; \
+	  done ; \
+	  if [ ${HSA_XNACK_SPECIFIED} = 1 ] ; then USE_XNACK=$$HSA_XNACK ; fi ; \
+	  $(MAKE) USE_XNACK=$${USE_XNACK} -C $$i run || exit 1; \
+	done
+else
 	@for i in $(TEST_FOLDERS) ; do \
 	  $(MAKE) -C $$i run || exit 1; \
 	done
+endif
 	@(printenv OMP_TARGET_OFFLOAD | grep "DISABLED" >/dev/null && echo " ---> Test ran on the host") || echo  " ---> Test ran on the device"
 	@echo " ---> All tests completed successfully!!!"
 
