@@ -62,13 +62,13 @@
   if (fail) { \
     printf ("%s:%d: Failed\n", __FILE__, __LINE__); \
   } else { \
-    printf ("%s:%d: Succeeded\n", __FILE__, __LINE__); \
+    printf ("%d: Succeeded\n", __LINE__); \
   } \
 }
 
 #define DUMP_SUCCESS(N) { \
   for (int i = 0; i < (N); i++) \
-    printf ("%s:%d: Succeeded\n", __FILE__, __LINE__); \
+    printf ("%d: Succeeded\n", __LINE__); \
 }
 
 /* NOTE: If needed for the pragram 'T' needs to add '{ }'; they are not
@@ -86,7 +86,7 @@
   if (fail) { \
     printf ("%s:%d: Failed\n", __FILE__, __LINE__); \
   } else { \
-    printf ("%s:%d: Succeeded\n", __FILE__, __LINE__); \
+    printf ("%d: Succeeded\n", __LINE__); \
   } \
 }
 
@@ -107,7 +107,7 @@
   if (fail) { \
     printf ("%s:%d: Failed\n", __FILE__, __LINE__); \
   } else { \
-    printf ("%s:%d: Succeeded\n", __FILE__, __LINE__); \
+    printf ("%d: Succeeded\n", __LINE__); \
   } \
 }
 
@@ -123,7 +123,7 @@
   if (fail) { \
     printf ("%s:%d: Failed\n", __FILE__, __LINE__); \
   } else { \
-    printf ("%s:%d: Succeeded\n", __FILE__, __LINE__); \
+    printf ("%d: Succeeded\n", __LINE__); \
   } \
 }
 
