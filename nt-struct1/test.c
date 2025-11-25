@@ -25,7 +25,7 @@ void print(S *s)
   printf("  x %5.3f, y %5.3f, z %5.3f\n", s->x,  s->y, s->z);
 }
 
-#define ALLOC_STRUCT(s) { s.pC = malloc(N*sizeof(double)); }
+#define ALLOC_STRUCT(s) { s.pC = (double*) malloc(N*sizeof(double)); }
 #define FREE_STRUCT(s) { free(s.pC); }
 
 #define INIT_STRUCT(s) { \
