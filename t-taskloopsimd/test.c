@@ -178,7 +178,7 @@ int main()
     {
 #pragma omp parallel
 #pragma omp single
-#pragma omp taskloop simd shared(a) lastprivate(myId)
+#pragma omp taskloop simd shared(a) lastprivate(lp)
       for(int i = 0 ; i < N; i++) {
 	a[i] += b[i] + c[i];
 	lp = a[i];
