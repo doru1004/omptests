@@ -14,6 +14,7 @@ int main()
   double a[N], a_h[N];
   double b[N], c[N];
   int fail = 0;
+  int fails = 0;
 
   check_offloading();
 
@@ -55,6 +56,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
     // Test: if clause
     fail = 0;
@@ -88,6 +90,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
     // Test: private clause
     fail = 0;
@@ -162,6 +165,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
      // Test: lastprivate clause
     fail = 0;
@@ -202,6 +206,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
      // Test: default clause
     fail = 0;
@@ -235,6 +240,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
     // Test: grainsize
     fail = 0;
@@ -268,6 +274,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
 
     // Test: num_tasks clause
@@ -302,6 +309,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
     // Test: collapse clause
 
@@ -333,6 +341,7 @@ int main()
       printf ("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
     // Test: final clause
     fail = 0;
@@ -366,6 +375,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
     // Test: priority clause
     fail = 0;
@@ -399,6 +409,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
     // Test: untied clause
     fail = 0;
@@ -432,6 +443,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
     // Test: mergeable clause
     fail = 0;
@@ -465,6 +477,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
     // Test: nogroup clause
     fail = 0;
@@ -498,7 +511,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
-
-  return 0;
+  return fails;
 }
