@@ -14,6 +14,7 @@ int main()
   double a[N], a_h[N];
   double b[N], c[N];
   int fail = 0;
+  int fails = 0;
 
   check_offloading();
 
@@ -58,6 +59,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
     // Test: if clause
     fail = 0;
@@ -91,6 +93,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
     // Test: private clause
     fail = 0;
@@ -101,9 +104,12 @@ int main()
     }
 
     int myId = -1;
-#pragma omp target map(tofrom:a) map(to:b,c)
+    int num_threads = -1;
+#pragma omp target map(tofrom:a) map(to:b,c) map(from:num_threads)
     {
 #pragma omp parallel
+      #pragma omp atomic write
+      num_threads = omp_get_num_threads();
 #pragma omp single
 #pragma omp taskloop simd shared(a) private(myId)
       for(int i = 0 ; i < N; i++) {
@@ -112,9 +118,15 @@ int main()
       }
     }
 
-    // myId == 0 for all iterations because we execute the entire loop on a single thread (the master)
+    // myId the same for all iterations because we execute the entire loop on a single thread,
+    // "is executed by only one of the threads in the team (not necessarily the primary thread)"
+    myId = a[0] - (a_h[0] + b[0] + c[0] + 0);
+    if (myId < 0 || myId >= num_threads) {
+      printf("Error: Unexpected thread number %d\n", myId);
+      fail = 1;
+    }
     for(int i = 0 ; i < N; i++)
-      a_h[i] += b[i] + c[i] + 0;
+      a_h[i] += b[i] + c[i] + myId;
 
 
     for(int i = 0 ; i < N; i++)
@@ -127,6 +139,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
 
     // Test: firstprivate clause
@@ -138,9 +151,11 @@ int main()
     }
 
     myId = -1;
-#pragma omp target map(tofrom:a) map(to:b,c)
+#pragma omp target map(tofrom:a) map(to:b,c) map(from:num_threads)
     {
 #pragma omp parallel
+      #pragma omp atomic write
+      num_threads = omp_get_num_threads();
 #pragma omp single
 #pragma omp taskloop simd shared(a) firstprivate(myId)
       for(int i = 0 ; i < N; i++) {
@@ -149,9 +164,15 @@ int main()
       }
     }
 
-    // myId == 0 for all iterations because we execute the entire loop on a single thread (the master)+
+    // myId the same for all iterations because we execute the entire loop on a single thread:
+    // "is executed by only one of the threads in the team (not necessarily the primary thread)"
+    myId = a[0] - (a_h[0] + b[0] + c[0] + (-1));
+    if (myId < 0 || myId >= num_threads) {
+      printf("Error: Unexpected thread number %d\n", myId);
+      fail = 1;
+    }
     for(int i = 0 ; i < N; i++)
-      a_h[i] += b[i] + c[i] + (-1);
+      a_h[i] += b[i] + c[i] + (-1) + myId;
 
 
     for(int i = 0 ; i < N; i++)
@@ -164,6 +185,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
      // Test: lastprivate clause
     fail = 0;
@@ -204,6 +226,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
      // Test: default clause
     fail = 0;
@@ -237,6 +260,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
     // Test: grainsize
     fail = 0;
@@ -270,6 +294,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
 
     // Test: num_tasks clause
@@ -304,6 +329,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
     // Test: collapse clause
 
@@ -335,6 +361,7 @@ int main()
       printf ("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
     // Test: final clause
     fail = 0;
@@ -368,6 +395,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
     // Test: priority clause
     fail = 0;
@@ -401,6 +429,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
     // Test: untied clause
     fail = 0;
@@ -434,6 +463,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
     // Test: mergeable clause
     fail = 0;
@@ -467,6 +497,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
     // Test: nogroup clause
     fail = 0;
@@ -500,6 +531,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
     // Test: safelen clause
     fail = 0;
@@ -533,6 +565,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
     // Test: simdlen clause
     fail = 0;
@@ -566,6 +599,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
     // compiler assert
 #if 0
@@ -602,6 +636,7 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 #endif
 
     // Test: safelen clause
@@ -636,9 +671,10 @@ int main()
       printf("Failed\n");
     else
       printf("Succeeded\n");
+    fails |= fail;
 
   }  else // if !cpuExec
     DUMP_SUCCESS(17);
 
-  return 0;
+  return fails;
 }
