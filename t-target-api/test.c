@@ -34,15 +34,14 @@ int main(void){
   printf("Default device outside task: %d\n", omp_get_default_device());
 
   // default device can set to whatever, if target fails, it goes to the host
-  const int default_device = (omp_get_num_devices() >= 3
-                              ? 3 : omp_get_num_devices() >= 2 ? 2 : 1);
+  const int default_device = 3;
   omp_set_default_device(default_device);
 
   // default device for omp target call MUST be >= 0 and <omp_get_num_devices() or
-  // the initial device. So when there to few devices, it must be the initial device
+  // the initial device; use 0 which is the first offload device, if any, else the host.
   int default_device_omp_target_call = default_device;
-  if (default_device > omp_get_num_devices()) {
-    default_device_omp_target_call = omp_get_initial_device();
+  if (default_device >= omp_get_num_devices()) {
+    default_device_omp_target_call = 0;
   } 
   #if DEBUG
     printf("test on machine with %d devices\n", omp_get_num_devices());
@@ -78,7 +77,7 @@ int main(void){
   omp_target_memcpy(dpD, pD, N*sizeof(double), 300*sizeof(double),
       30*sizeof(double), default_device_omp_target_call, omp_get_initial_device());
 
-  #pragma omp target is_device_ptr(dpA, dpC, dpD) device(default_device)
+  #pragma omp target is_device_ptr(dpA, dpC, dpD) device(default_device_omp_target_call)
   {
     #pragma omp parallel for schedule(static,1)
     for (int i = 0; i < 992; i++)
