@@ -22,16 +22,14 @@ struct NoOffloadCtorDtor {
   
     if (!offloading_disabled() || !RunDtor)
       return;
-    printf("DtorA: 5159780352 Device\n");
-    printf("DtorC: 123 Device\n");
-    printf("DtorD: 1860867 Device\n");
-    printf("DtorD: 1860867 Device\n");
-    printf("DtorD: 1860867 Device\n");
     printf("DtorE: 1860867 Device\n");
+    printf("DtorD: 1860867 Device\n");
+    printf("DtorD: 1860867 Device\n");
+    printf("DtorD: 1860867 Device\n");
+    printf("DtorC: 123 Device\n");
+    printf("DtorA: 5159780352 Device\n");
   }
 };
-
-NoOffloadCtorDtor NC0(true);
 
 #pragma omp declare target
 
@@ -107,11 +105,11 @@ SSE se;
 
 SSW sw(56);
 
-NoOffloadCtorDtor NC1(false);
-
 int main(void) {
 
   bool OffloadDisabled = offloading_disabled();
+
+  NoOffloadCtorDtor NC0(false);
 
   #pragma omp target device(0)
   #pragma omp teams num_teams(1) thread_limit(1)
@@ -119,5 +117,8 @@ int main(void) {
   {
    printf("Main: %d %s\n",123, (omp_is_initial_device() && !OffloadDisabled) ? "Host" : "Device");
   }
+
+  NoOffloadCtorDtor NC1(true);
+
   return 0;
 }
